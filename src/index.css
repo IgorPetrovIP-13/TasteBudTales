@@ -1,3 +1,219 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+section {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: "Satoshi 400";
+  color: var(--white);
+}
+
+body {
+  line-height: 1;
+  background-color: #1e1e20;
+  min-height: 100vh;
+  padding-bottom: 280px;
+  position: relative;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+:root {
+  --black: #1e1e20;
+  --dark-grey: #2e2e31;
+  --dark-grey-secondary: #383838;
+  --grey: #555555;
+  --light-grey: #b9b9b9;
+  --dark-red: #66090c;
+  --light-red: #dd6464;
+  --white: #f5f5f5;
+  --yellow: #ffc633;
+  --green: #01ab31;
+
+  /* breakpoint-xs: 320px; 
+  breakpoint-sm: 768px;
+  breakpoint-md: 992px; 
+  breakpoint-lg: 1200px;
+  breakpoint-xl: 1440px; 
+  */
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: var(--black);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--light-grey);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* ---Satoshi */
+/* Regular */
+@font-face {
+  font-family: "Satoshi 400";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Satoshi-Regular"),
+    url("./assets/fonts/Satoshi/Satoshi-Regular.woff") format("woff");
+}
+
+/* Medium */
+@font-face {
+  font-family: "Satoshi 500";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Satoshi-Medium"),
+    url("./assets/fonts/Satoshi/Satoshi-Medium.woff") format("woff");
+}
+
+/* Bold */
+@font-face {
+  font-family: "Satoshi 700";
+  font-style: normal;
+  font-weight: normal;
+
+  src: local("Satoshi-Bold"),
+    url("./assets/fonts/Satoshi/Satoshi-Bold.woff") format("woff");
+}

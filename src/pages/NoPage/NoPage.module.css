@@ -1,0 +1,103 @@
+.wrapper {
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heading {
+    font-family: "Satoshi 500";
+    font-size: 16rem;
+    color: var(--light-grey);
+    display: flex;
+    align-items: center;
+}
+
+.panImg {
+    height: 16rem;
+    width: auto;
+}
+
+.description {
+    margin-top: 3rem;
+    font-size: 1.5rem;
+    font-family: "Satoshi 500";
+    color: var(--light-grey);
+    text-align: center;
+}
+
+.goBack {
+    max-width: 300px;
+    margin-top: 1.5rem;
+    font-family: "Satoshi 700";
+    background-color: var(--dark-grey);
+    outline: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    padding: 0 1rem;
+    color: var(--light-grey);
+    letter-spacing: 1px;
+    font-size: 1.3rem;
+    height: 2.5rem;
+    text-transform: uppercase;
+    border: none;
+    text-align: center;
+    transition: all .3s;
+    &:active {
+        transform: translateY(4px);
+        scale: 0.93;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .heading {
+        font-size: 9rem;
+    }
+    .panImg {
+        height: 9rem;
+    }
+    .description {
+        margin-top: 1.5rem;
+        font-size: 1rem;
+    }
+    .goBack {
+        font-size: 1rem;
+        height: 1.8rem;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .heading {
+        font-size: 6rem;
+    }
+    .panImg {
+        height: 6rem;
+    }
+    .description {
+        margin-top: 1.2rem;
+        font-size: 0.8rem;
+    }
+    .goBack {
+        font-size: 0.8rem;
+        height: 1.3rem;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    .wrapper {
+        margin-top: 7vh;
+    }
+    .heading {
+        font-size: 9rem;
+    }
+    .panImg {
+        height: 9rem;
+    }
+    .description {
+        display: none;
+    }
+    .goBack {
+        font-size: 1rem;
+        height: 1.8rem;
+    }
+}

@@ -1,0 +1,52 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 5vh;
+}
+
+.imgWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--white);
+    font-family: "Satoshi 500";
+    width: fit-content;
+    margin-right: 2rem;
+}
+
+.imgWrapper img {
+    height: 100%;
+    width: auto;
+}
+
+.imgWrapper p {
+    margin-top: 1rem;
+    font-size: 1.7rem;
+}
+
+@media screen and (max-width: 768px) {
+    .imgWrapper {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .imgWrapper {
+        margin-right: 1rem;
+    }
+    .imgWrapper img {
+        height: 70%;
+        width: auto;
+    }
+    .imgWrapper p {
+        margin-top: 0.8rem;
+        font-size: 1.4rem;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    .wrapper {
+        margin-top: 7vh;
+    }
+}

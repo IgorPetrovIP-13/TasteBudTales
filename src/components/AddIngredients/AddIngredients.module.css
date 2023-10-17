@@ -1,0 +1,197 @@
+.ingredientsUl {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.7rem;
+  width: fit-content;
+  border-radius: 1rem;
+}
+
+.ingredientLi {
+  display: flex;
+  align-items: center;
+  column-gap: 0.3rem;
+}
+
+.weightInput,
+.nameInput {
+  height: 2.2rem;
+  border-radius: 1rem;
+  outline: 0;
+  border: 0;
+  font-family: "Satoshi 500";
+  background-color: var(--grey);
+  color: var(--white);
+  padding: 0 0.7rem;
+  font-size: 0.95rem;
+  transition: all .3s;
+}
+
+.weightInput {
+  width: 5rem;
+}
+
+.unitSelect {
+  position: relative;
+  display: inline-flex;
+  width: 5rem;
+  height: 2.2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.unitSelect::after {
+  content: "\25BC";
+  font-size: 0.7rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.85rem 0.5rem;
+  background-color: var(--dark-grey-secondary);
+  transition: 0.25s all ease;
+  pointer-events: none;
+}
+
+.unitSelect:hover::after {
+  color: var(--light-grey);
+}
+
+.innerSelect {
+  font-family: "Satoshi 500";
+  appearance: none;
+  outline: none;
+  border: 0;
+  box-shadow: none;
+  flex: 1;
+  padding-left: 0.6rem;
+  color: var(--white);
+  font-size: 0.95rem;
+  background-color: var(--grey);
+  background-image: none;
+  cursor: pointer;
+}
+
+.innerSelect::-ms-expand {
+  display: none;
+}
+
+.crossBtn {
+  display: flex;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid var(--light-red);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.crossBtn:hover {
+  background-color: var(--light-red);
+}
+
+.crossBtn:hover .crossIcon {
+  filter: brightness(0);
+}
+
+.crossIcon {
+  transition: all 0.3s;
+  width: 100%;
+  height: auto;
+}
+
+.addIngredientButton {
+  font-family: "Satoshi 500";
+  background-color: var(--dark-grey-secondary);
+  display: flex;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+  border-radius: 1rem;
+  padding: 0 1rem 0 0.5rem;
+  color: var(--white);
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  height: 2rem;
+  text-transform: capitalize;
+  min-width: 64px;
+  max-width: 100%;
+  border: none;
+  text-align: center;
+  margin-top: 1rem;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s;
+  &:hover {
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+      0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  }
+  &:active {
+    transform: translateY(4px);
+    scale: 0.93;
+  }
+}
+
+.addIngredientButton img {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.4rem;
+}
+
+.item-enter {
+  opacity: 0;
+}
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+@media screen and (max-width: 768px) {
+  .ingredientsUl {
+    row-gap: 0.5rem;
+  }
+  .weightInput,
+  .nameInput {
+    font-size: 0.85rem;
+    padding: 0 .65rem;
+    height: 2rem;
+    border-radius: 0.9rem;
+  }
+  .weightInput {
+    width: 4.3rem;
+  }
+  .nameInput {
+    width: 9rem;
+  }
+  .crossBtn {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  .unitSelect {
+    width: 4.3rem;
+    height: 2rem;
+  }
+  .innerSelect {
+    font-size: 0.85rem;
+  }
+  .addIngredientButton {
+    border-radius: 0.9rem;
+    padding: 0 0.9rem 0 0.45rem;
+    font-size: 0.8rem;
+    height: 1.9rem;
+    margin-top: 0.85rem;
+  }
+  .addIngredientButton img {
+    width: 1.05rem;
+    height: 1.05rem;
+    margin-right: 0.35rem;
+  }
+}
