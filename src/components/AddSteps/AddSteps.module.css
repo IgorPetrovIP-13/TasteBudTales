@@ -1,0 +1,134 @@
+.stepContainer {
+    padding: 1rem 0 1.2rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+}
+
+.stepHeader {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  background-color: var(--light-red);
+  width: 6rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.stepHeader::before {
+  content: "";
+  background-image: url("../../assets/icons/dot.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: 0.5rem;
+  text-align: center;
+}
+
+.stepTextWrapper {
+  background-color: var(--dark-grey);
+  border-radius: 0.8rem;
+  width: 70%;
+  transition: all 0.3s;
+}
+
+.counter {
+  display: block;
+  text-align: end;
+  padding: 0.5rem;
+}
+
+.stepText {
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  font-family: "Satoshi 400";
+  outline: 0;
+  border: 0;
+  width: 100%;
+  resize: none;
+  color: var(--white);
+  background-color: transparent;
+}
+
+.removeBtn {
+   font-family: "Satoshi 500";
+   color: var(--light-red);
+   border: 1px solid var(--light-red);
+   font-size: 0.9rem;
+   padding: 0.3rem 0.6rem;
+   border-radius: 1rem;
+   cursor: pointer;
+   width: max-content;
+   text-transform: capitalize;
+   background-color: transparent;
+   transition: all .3s;
+}
+.removeBtn:hover {
+    color: var(--black);
+    background-color: var(--light-red);
+} 
+
+.addStepButton {
+  font-family: "Satoshi 500";
+  background-color: var(--dark-grey-secondary);
+  display: flex;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+  border-radius: 1rem;
+  padding: 0 1rem 0 0.5rem;
+  color: var(--white);
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  height: 2rem;
+  text-transform: capitalize;
+  min-width: 64px;
+  max-width: 100%;
+  border: none;
+  text-align: center;
+  margin-top: 1rem;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s;
+  &:hover {
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+      0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  }
+  &:active {
+    transform: translateY(4px);
+    scale: 0.93;
+  }
+}
+
+.addStepButton img {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.4rem;
+}
+
+@media screen and (max-width: 992px) {
+  .stepTextWrapper {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .stepTextWrapper {
+    width: 100%;
+  }
+  .addStepButton {
+    border-radius: 0.9rem;
+    padding: 0 0.9rem 0 0.45rem;
+    font-size: 0.8rem;
+    height: 1.9rem;
+    margin-top: 0.85rem;
+  }
+  .addStepButton img {
+    width: 1.05rem;
+    height: 1.05rem;
+    margin-right: 0.35rem;
+  }
+}

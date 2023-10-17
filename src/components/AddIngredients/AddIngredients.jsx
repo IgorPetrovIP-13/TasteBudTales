@@ -36,8 +36,8 @@ const AddIngredients = () => {
     dispatch(removeIngredient(index));
   }
 
-  function addingIngredient(ingredient) {
-    dispatch(addIngredient(ingredient));
+  function addingIngredient() {
+    dispatch(addIngredient());
   }
 
   return (
@@ -86,9 +86,7 @@ const AddIngredients = () => {
         ))}
       </ul>
       <button
-        onClick={() =>
-          addingIngredient({ weight: "", unit: units[0], name: "" })
-        }
+        onClick={() => addingIngredient()}
         className={styles.addIngredientButton}
       >
         <img src="./src/assets/icons/plus.svg" alt="plus" />

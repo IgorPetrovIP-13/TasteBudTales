@@ -7,7 +7,7 @@ const initialState = {
   cookingComplexity: "easy",
   commentary: "",
   ingredients: [{ weight: "", unit: "g", name: "" }],
-  steps: [],
+  steps: [{image: null, text: ""}],
 };
 
 const constructorReducer = createSlice({
@@ -20,8 +20,8 @@ const constructorReducer = createSlice({
     changeCommentary: (state, action) => {
       state.commentary = action.payload;
     },
-    addIngredient: (state, action) => {
-      state.ingredients.push(action.payload);
+    addIngredient: (state) => {
+      state.ingredients.push({ weight: "", unit: "g", name: "" });
     },
     removeIngredient: (state, action) => {
       state.ingredients.splice(action.payload, 1);
@@ -38,6 +38,16 @@ const constructorReducer = createSlice({
       const { index, name } = action.payload;
       state.ingredients[index].name = name;
     },
+    addStep: (state) => {
+      state.steps.push({image: null, text: ""});
+    },
+    removeStep: (state, action) => {
+      state.steps.splice(action.payload, 1);
+    },
+    changeStepText: (state, action) => {
+      const { index, text } = action.payload;
+      state.steps[index].text = text;
+    },
     clearConstructor: () => initialState,
   },
 });
@@ -50,6 +60,9 @@ export const {
   changeIngredientWeight,
   changeIngredientUnit,
   changeIngredientName,
+  addStep,
+  removeStep,
+  changeStepText
 } = constructorReducer.actions;
 
 export default constructorReducer.reducer;
