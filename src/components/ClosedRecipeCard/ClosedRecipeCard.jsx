@@ -72,8 +72,8 @@ const ClosedRecipeCard = ({
             <img
               src={
                 !isSaved
-                  ? {saveSvg}
-                  : {saveClicked}
+                  ? saveSvg
+                  : saveClicked
               }
               alt="save"
             />
