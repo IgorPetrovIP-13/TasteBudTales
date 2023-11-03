@@ -5,6 +5,11 @@ import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { ref, update, get, onValue, off } from "firebase/database";
 import { toast } from "react-toastify";
+import save from "@/assets/icons/save.svg";
+import saveClicked from "@/assets/icons/saveClicked.svg";
+import clock from "@/assets/icons/clock.svg";
+import serving from "@/assets/icons/portion.svg";
+import complexitySvg from "@/assets/icons/complexity.svg";
 
 const ClosedRecipeCard = ({
   imgLink,
@@ -67,8 +72,8 @@ const ClosedRecipeCard = ({
             <img
               src={
                 !isSaved
-                  ? "./src/assets/icons/save.svg"
-                  : "./src/assets/icons/saveClicked.svg"
+                  ? {save}
+                  : {saveClicked}
               }
               alt="save"
             />
@@ -86,7 +91,7 @@ const ClosedRecipeCard = ({
         <h3 className={styles.recipeName}>{name}</h3>
         <div className={styles.characteristicsWrapper}>
           <div className={styles.characteristic}>
-            <img src="./src/assets/icons/clock.svg" alt="clock" />
+            <img src={clock} alt="clock" />
             <span>
               {cookingTime > 60
                 ? Math.floor(cookingTime / 60) +
@@ -98,11 +103,11 @@ const ClosedRecipeCard = ({
             </span>
           </div>
           <div className={styles.characteristic}>
-            <img src="./src/assets/icons/portion.svg" alt="clock" />
+            <img src={serving} alt="serving" />
             <span>{servingsNum}</span>
           </div>
           <div className={styles.characteristic}>
-            <img src="./src/assets/icons/complexity.svg" alt="clock" />
+            <img src={complexitySvg} alt="complexity" />
             <span>{complexity}</span>
           </div>
         </div>

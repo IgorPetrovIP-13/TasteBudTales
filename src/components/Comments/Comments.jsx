@@ -1,6 +1,6 @@
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
-import { get, ref, update, off } from "firebase/database";
+import { get, ref, update } from "firebase/database";
 import { toast } from "react-toastify";
 import { db } from "../../firebase";
 import styles from "./Comments.module.css";
@@ -8,6 +8,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { Rating } from "react-simple-star-rating";
 import { getCurrentDate } from "../../utils/dateFormatting";
 import { Link } from "react-router-dom";
+import cook from "@/assets/icons/cook.svg"
 
 const fillColorArray = ["#f17a45", "#f19745", "#f1a545", "#f1b345", "#f1d045"];
 
@@ -221,7 +222,7 @@ const Comments = ({ id, recipeUid }) => {
                               height: "1.3em",
                               marginLeft: "0.2rem",
                             }}
-                            src="../../src/assets/icons/cook.svg"
+                            src={cook}
                             alt="(Author)"
                           />
                         )}
