@@ -6,6 +6,10 @@ import {
   changeComplexity,
   changeCategory,
 } from "../../reducers/constructorReducer";
+import clock from "@/assets/icons/clock.svg";
+import serving from "@/assets/icons/portion.svg";
+import complexitySvg from "@/assets/icons/complexity.svg";
+import categorySvg from "@/assets/icons/category.svg";
 
 const AddCharacteristics = () => {
   const time = useSelector((state) => state.recipeConstructor.cookingTime);
@@ -35,7 +39,7 @@ const AddCharacteristics = () => {
   return (
     <ul className={styles.wrapper}>
       <li className={styles.characteristic}>
-        <img src="./src/assets/icons/clock.svg" alt="clock" />
+        <img src={clock} alt="clock" />
         <h3>Time in min.</h3>
         <input
           value={time}
@@ -44,7 +48,7 @@ const AddCharacteristics = () => {
         />
       </li>
       <li className={styles.characteristic}>
-        <img src="./src/assets/icons/portion.svg" alt="portions" />
+        <img src={serving} alt="portions" />
         <h3>Servings</h3>
         <input
           value={portions}
@@ -53,7 +57,7 @@ const AddCharacteristics = () => {
         />
       </li>
       <li className={styles.characteristic}>
-        <img src="./src/assets/icons/complexity.svg" alt="complexity" />
+        <img src={complexitySvg} alt="complexity" />
         <h3>Complexity</h3>
         <div className={styles.unitSelect}>
           <select
@@ -68,7 +72,7 @@ const AddCharacteristics = () => {
         </div>
       </li>
       <li className={styles.characteristic}>
-        <img src="./src/assets/icons/category.svg" alt="category" />
+        <img src={categorySvg} alt="category" />
         <h3>Category</h3>
         <div className={styles.unitSelect}>
           <select

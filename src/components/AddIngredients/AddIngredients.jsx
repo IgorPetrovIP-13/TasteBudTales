@@ -8,7 +8,7 @@ import {
   changeIngredientUnit,
   changeIngredientName,
 } from "../../reducers/constructorReducer";
-import plus from "@/assets/icons/plus.svg"
+import plus from "@/assets/icons/plus.svg";
 import cross from "@/assets/icons/cross.svg";
 
 const units = ["g", "kg", "ml", "l", "-", "tsp", "tbsp", "cup"];

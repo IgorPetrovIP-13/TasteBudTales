@@ -6,6 +6,7 @@ import {
   changeStepText,
 } from "../../reducers/constructorReducer";
 import TextareaAutosize from "react-textarea-autosize";
+import plus from "@/assets/icons/plus.svg"
 
 const AddSteps = () => {
   const steps = useSelector((state) => state.recipeConstructor.steps);
@@ -51,7 +52,7 @@ const AddSteps = () => {
         onClick={() => dispatch(addStep())}
         className={styles.addStepButton}
       >
-        <img src="./src/assets/icons/plus.svg" alt="plus" />
+        <img src={plus} alt="plus" />
         Add Step
       </button>
     </>
