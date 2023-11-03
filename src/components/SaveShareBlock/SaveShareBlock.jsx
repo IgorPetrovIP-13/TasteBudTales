@@ -73,8 +73,8 @@ const SaveShareBlock = ({ id, isAutor, tags }) => {
               <img
                 src={
                   !isSaved
-                    ? "../../src/assets/icons/save.svg"
-                    : "../../src/assets/icons/saveClicked.svg"
+                    ? "@/assets/icons/save.svg"
+                    : "@/assets/icons/saveClicked.svg"
                 }
                 alt="save"
               />
