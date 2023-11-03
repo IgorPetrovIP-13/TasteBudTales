@@ -12,6 +12,7 @@ import { ref, onValue, update, off, get } from "firebase/database";
 import { db } from "../../firebase";
 import save from "@/assets/icons/save.svg";
 import saveClicked from "@/assets/icons/saveClicked.svg";
+import share from "@/assets/icons/share.svg"
 
 const SaveShareBlock = ({ id, isAutor, tags }) => {
   const currentUrl = window.location.href;
@@ -97,7 +98,7 @@ const SaveShareBlock = ({ id, isAutor, tags }) => {
           <TwitterIcon size={32} round={true} />
         </TwitterShareButton>
         <button onClick={() => handleCopy()} className={styles.shareBtn}>
-          <img src="../../src/assets/icons/share.svg" alt="share" />
+          <img src={share} alt="share" />
         </button>
       </div>
     </div>
