@@ -11,7 +11,7 @@
     caret-color: var(--white);
     transition: width 0.4s ease-in-out;
     background-size: 1.1rem;
-    background-image: url("../../src/assets/icons/search.svg");
+    background-image: url("@/assets/icons/search.svg");
     background-position: 0.45rem 0.45rem; 
     background-repeat: no-repeat;
     width: 7.5rem;
