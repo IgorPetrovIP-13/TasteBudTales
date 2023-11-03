@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { ref, update, get, onValue, off } from "firebase/database";
 import { toast } from "react-toastify";
-import save from "@/assets/icons/save.svg";
+import saveSvg from "@/assets/icons/save.svg";
 import saveClicked from "@/assets/icons/saveClicked.svg";
 import clock from "@/assets/icons/clock.svg";
 import serving from "@/assets/icons/portion.svg";
@@ -72,7 +72,7 @@ const ClosedRecipeCard = ({
             <img
               src={
                 !isSaved
-                  ? {save}
+                  ? {saveSvg}
                   : {saveClicked}
               }
               alt="save"
