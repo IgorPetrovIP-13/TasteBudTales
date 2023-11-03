@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import { useAuth } from "../../hooks/useAuth";
+import cook from "@/assets/icons/cook.svg";
 
 const Header = () => {
 
@@ -16,12 +17,12 @@ const Header = () => {
           <SearchBar />
           {user.isAuth ? (
             <Link className={styles.profileLink} to={"/profile"}>
-              <img src="../../src/assets/icons/cook.svg" alt="cook" />
+              <img src={cook} alt="cook" />
               {user.nickname}
             </Link>
           ) : (
             <Link className={styles.profileLink} to={"/login"}>
-              <img src="../../src/assets/icons/cook.svg" alt="cook" />
+              <img src={cook} alt="cook" />
               Login
             </Link>
           )}
