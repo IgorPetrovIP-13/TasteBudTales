@@ -85,6 +85,7 @@
   border: 1px solid var(--light-red);
   cursor: pointer;
   transition: all 0.3s;
+  padding: 0;
 }
 
 .crossBtn:hover {
