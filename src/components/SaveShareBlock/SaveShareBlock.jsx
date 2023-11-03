@@ -10,6 +10,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { useState, useEffect } from "react";
 import { ref, onValue, update, off, get } from "firebase/database";
 import { db } from "../../firebase";
+import save from "@/assets/icons/save.svg";
+import saveClicked from "@/assets/icons/saveClicked.svg";
 
 const SaveShareBlock = ({ id, isAutor, tags }) => {
   const currentUrl = window.location.href;
@@ -73,8 +75,8 @@ const SaveShareBlock = ({ id, isAutor, tags }) => {
               <img
                 src={
                   !isSaved
-                    ? "@/assets/icons/save.svg"
-                    : "@/assets/icons/saveClicked.svg"
+                    ? {save}
+                    : {saveClicked}
                 }
                 alt="save"
               />
