@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./NoPage.module.css";
+import pan from "@/assets/icons/pan.svg";
 
 const NoPage = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const NoPage = () => {
         4
         <img
           className={styles.panImg}
-          src="../../src/assets/icons/pan.svg"
+          src={pan}
           alt="pan"
         />
         4

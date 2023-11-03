@@ -6,7 +6,7 @@ import {
   changeStepText,
 } from "../../reducers/constructorReducer";
 import TextareaAutosize from "react-textarea-autosize";
-import plus from "@/assets/icons/plus.svg"
+import plus from "@/assets/icons/plus.svg";
 
 const AddSteps = () => {
   const steps = useSelector((state) => state.recipeConstructor.steps);

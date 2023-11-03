@@ -7,6 +7,8 @@ import { useAuth } from "../../hooks/useAuth";
 import Comments from "../../components/Comments/Comments";
 import { Link } from "react-router-dom";
 import SaveShareBlock from "../../components/SaveShareBlock/SaveShareBlock";
+import ingredientsSvg from "@/assets/icons/ingredients.svg";
+import cookingStepsSvg from "@/assets/icons/ingredients.svg";
 
 const RecipePage = () => {
   const { id } = useParams();
@@ -51,7 +53,7 @@ const RecipePage = () => {
           <hr className={styles.sectionHr} />
           <div className={styles.recipeSection}>
             <h2 className={styles.sectionHeader}>
-              <img src="../../src/assets/icons/ingredients.svg" alt="" />
+              <img src={ingredientsSvg} alt="" />
               Ingredients
             </h2>
             <div className={styles.ingredientsWrapper}>
@@ -72,7 +74,7 @@ const RecipePage = () => {
           <hr className={styles.sectionHr} />
           <div className={styles.recipeSection}>
             <h2 className={styles.sectionHeader}>
-              <img src="../../src/assets/icons/cookingSteps.svg" alt="" />
+              <img src={cookingStepsSvg} alt="" />
               Cooking steps
             </h2>
             <div className={styles.stepsContainer}>
