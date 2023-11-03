@@ -1,0 +1,13 @@
+.recipesGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 3rem;
+    column-gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.mainHeader {
+    font-family: "Satoshi 700";
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./HamburgerMenu.module.css";
 import { Squash as Hamburger } from "hamburger-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const categories = [
   "soups",
@@ -15,6 +16,7 @@ const categories = [
 
 const HamburgerMenu = () => {
   const [isOpened, setIsOpened] = useState(false);
+  const user = useAuth();
 
   const toggleMenu = () => {
     setIsOpened(!isOpened);
@@ -43,12 +45,24 @@ const HamburgerMenu = () => {
                 onClick={() => {
                   toggleMenu();
                 }}
-                to={category.split(" ").join("")}
+                to={category.split(" ").join("_")}
               >
                 {category}
               </Link>
             </li>
           ))}
+          {user.isAuth && (
+            <li className={styles.categoryLi}>
+              <Link
+                onClick={() => {
+                  toggleMenu();
+                }}
+                to={"/constructor"}
+              >
+                Create Recipe +
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </>

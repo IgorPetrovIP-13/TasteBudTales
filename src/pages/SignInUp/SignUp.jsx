@@ -4,7 +4,7 @@ import styles from "./SignInUp.module.css";
 const Register = () => {
   return (
     <section className={styles.wrapper}>
-      <div className={styles.imgWrapper}>
+      <div style={{ marginRight: "4rem" }} className={styles.imgWrapper}>
         <img
           className={styles.img}
           src="./src/assets/icons/chef.svg"

@@ -1,0 +1,126 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  color: var(--white);
+}
+
+.wrapper a {
+  text-transform: none;
+  color: var(--white);
+  height: 100%;
+}
+
+.wrapper:hover .imgWrapper img {
+  transform: rotate(-3deg) scale(1.1);
+}
+
+.saveButton {
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  padding: 0;
+  background-color: transparent;
+  width: 3rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.saveButton img {
+  width: 100%;
+  height: auto;
+}
+
+.editButton {
+  background-color: var(--light-red);
+  position: absolute;
+  right: 0.85rem;
+  top: 0.6rem;
+  z-index: 2;
+  color: var(--white);
+  border: 2px solid var(--white);
+  border-radius: 0.35rem;
+  text-transform: uppercase;
+  font-family: "Satoshi 700";
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.recipeName {
+  font-family: "satoshi 500";
+  font-size: 1.3rem;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+
+.imgWrapper {
+  position: relative;
+  overflow: hidden;
+  height: 240px;
+}
+
+.imgPreloader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--black);
+}
+
+.ldsDualRing {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.ldsDualRing:after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 4px solid var(--white);
+  border-color: var(--white) transparent var(--white) transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.imgWrapper img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  will-change: transform;
+}
+
+.characteristicsWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: auto;
+}
+
+.characteristic {
+  display: flex;
+  align-items: center;
+}
+
+.characteristic img {
+  width: 1.5rem;
+  margin-right: 0.35rem;
+}

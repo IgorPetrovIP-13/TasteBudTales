@@ -12,7 +12,7 @@ const AddImg = () => {
   const handleFileChange = (event) => {
     event.preventDefault();
     const file = event.target.files && event.target.files[0];
-    typeof file;
+    console.log(file);
     if (file) {
       dispatch(changeMainImg(file));
     }
@@ -34,7 +34,7 @@ const AddImg = () => {
   };
 
   const handleDrop = (event) => {
-    handleFileChange(event)
+    handleFileChange(event);
     handleDrag(event, false);
     event.preventDefault();
   };
@@ -87,6 +87,7 @@ const AddImg = () => {
         </>
       )}
       <button
+        type="button"
         className={styles.addImageButton}
         onClick={() => fileInput.current?.click()}
       >

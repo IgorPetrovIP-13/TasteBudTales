@@ -6,6 +6,8 @@ import RecipeConstructor from "./pages/RecipeConstructor/RecipeConstructor";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Profile from "./pages/Profile/Profile";
+import RecipesByCategory from "./pages/RecipesByCategory/RecipesByCategory";
+import RecipePage from "./pages/RecipePage/RecipePage";
 import { Sugar } from "react-preloaders2";
 import { useDispatch } from "react-redux";
 import { auth } from "./firebase";
@@ -36,11 +38,12 @@ function App() {
             })
           );
         });
+        setLoading(false);
       } else {
         dispatch(removeUser());
+        setLoading(false);
       }
     });
-    setLoading(false);
     return () => {
       unsubscribe();
     };
@@ -50,11 +53,13 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<RecipeConstructor />} />
+        <Route path="/" element={<></>} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/constructor" element={<RecipeConstructor />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/:category" element={<RecipesByCategory />} />
+        <Route path="/recipes/:id" element={<RecipePage />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
       <Footer />

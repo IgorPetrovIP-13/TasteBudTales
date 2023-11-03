@@ -1,0 +1,100 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 70%;
+  transition: all 0.3s;
+  padding-top: 1rem;
+  grid-gap: 1.2rem 0.5rem;
+}
+
+.characteristic {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5rem;
+}
+
+.characteristic img {
+  width: 2rem;
+  height: auto;
+}
+
+.characteristic input {
+  width: 6.5rem;
+  border-radius: 1rem;
+  outline: 0;
+  border: 0;
+  height: 1.7rem;
+  font-size: 0.9rem;
+  color: var(--white);
+  background-color: var(--grey);
+  font-family: "Satoshi 500";
+  text-align: center;
+  padding: 0 0.6rem;
+}
+
+.unitSelect {
+  position: relative;
+  display: inline-flex;
+  width: 6.5rem;
+  height: 1.7rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.unitSelect::after {
+  content: "\25BC";
+  font-size: 0.6rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.65rem 0.45rem;
+  background-color: var(--dark-grey-secondary);
+  transition: 0.25s all ease;
+  pointer-events: none;
+}
+
+.unitSelect:hover::after {
+  color: var(--light-grey);
+}
+
+.innerSelect {
+  font-family: "Satoshi 500";
+  appearance: none;
+  outline: none;
+  border: 0;
+  box-shadow: none;
+  flex: 1;
+  padding-left: 0.6rem;
+  color: var(--white);
+  font-size: 0.95rem;
+  background-color: var(--grey);
+  background-image: none;
+  cursor: pointer;
+  padding-bottom: 0.1rem;
+}
+
+.innerSelect::-ms-expand {
+  display: none;
+}
+
+@media screen and (max-width: 992px) {
+  .wrapper {
+    width: 85%;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .characteristic:nth-child(4) {
+    grid-column: 1 / 4;
+  }
+}
+
+@media screen and (max-width: 778px) {
+  .wrapper {
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+  }
+  .characteristic:nth-child(4) {
+    grid-column: 2 / 2;
+  }
+}

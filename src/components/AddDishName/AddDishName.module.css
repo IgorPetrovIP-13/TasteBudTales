@@ -1,0 +1,73 @@
+.input {
+  outline: 0;
+  color: var(--white);
+  background-color: var(--dark-grey);
+  padding: 0.5rem;
+  padding-left: 1rem;
+  font-family: "Satoshi 500";
+  border-radius: 1.3rem;
+  font-size: 1.3rem;
+  border: 0;
+  width: 70%;
+  transition: all 0.3s;
+}
+
+.unitSelect {
+  position: relative;
+  display: inline-flex;
+  width: 5rem;
+  height: 2.2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.unitSelect::after {
+  content: "\25BC";
+  font-size: 0.7rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.85rem 0.5rem;
+  background-color: var(--dark-grey-secondary);
+  transition: 0.25s all ease;
+  pointer-events: none;
+}
+
+.unitSelect:hover::after {
+  color: var(--light-grey);
+}
+
+.innerSelect {
+  font-family: "Satoshi 500";
+  appearance: none;
+  outline: none;
+  border: 0;
+  box-shadow: none;
+  flex: 1;
+  padding-left: 0.6rem;
+  color: var(--white);
+  font-size: 0.95rem;
+  background-color: var(--grey);
+  background-image: none;
+  cursor: pointer;
+}
+
+.innerSelect::-ms-expand {
+  display: none;
+}
+
+@media screen and (max-width: 992px) {
+  .input {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .input {
+    padding: 0.45rem;
+    padding-left: 1rem;
+    border-radius: 1.15rem;
+    font-size: 1.15rem;
+    width: 100%;
+  }
+}

@@ -1,0 +1,293 @@
+.recipeWrapper {
+  width: 70%;
+  transition: width .3s;
+}
+
+.recipeSection {
+  padding: 3rem 0;
+}
+
+.sectionHeader {
+  font-family: "Satoshi 700";
+  font-size: 1.4rem;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.byUserHeader {
+  font-family: "Satoshi 500";
+  margin: 0.5rem 0 1.5rem;
+  font-size: 1.1rem;
+}
+
+.byUserHeader a {
+  color: var(--light-grey);
+}
+
+.sectionHeader img {
+  height: 1.85rem;
+  width: auto;
+  margin-right: 0.5rem;
+}
+
+.sectionHr {
+  height: 1px;
+  border: none;
+  background-color: var(--white);
+  margin: 0 auto;
+}
+
+.imgWrapper {
+  position: relative;
+}
+
+.imgWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.description {
+  line-height: 1.2rem;
+}
+
+.ingredientsWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.checkboxWrapper {
+  position: relative;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 30px auto;
+  align-items: center;
+}
+
+.checkboxWrapper label {
+  color: var(--white);
+  position: relative;
+  cursor: pointer;
+  display: grid;
+  align-items: center;
+  width: fit-content;
+  transition: color 0.3s ease;
+}
+
+.checkboxWrapper label::before,
+.checkboxWrapper label::after {
+  content: "";
+  position: absolute;
+}
+
+.checkboxWrapper label::before {
+  height: 2px;
+  width: 8px;
+  left: -27px;
+  background: var(--light-red);
+  transition: background 0.3s ease;
+}
+
+.checkboxWrapper label:after {
+  height: 4px;
+  width: 4px;
+  top: 8px;
+  left: -25px;
+  border-radius: 50%;
+}
+
+.checkboxWrapper input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  height: 15px;
+  width: 15px;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+  margin: 3px 15px 0 0;
+  background: transparent;
+  display: grid;
+  align-items: center;
+}
+
+.checkboxWrapper input[type="checkbox"]::before,
+.checkboxWrapper input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  top: auto;
+  background: var(--light-red);
+  border-radius: 2px;
+}
+.checkboxWrapper input[type="checkbox"]::before {
+  width: 0px;
+  right: 60%;
+  transform-origin: right bottom;
+}
+.checkboxWrapper input[type="checkbox"]::after {
+  width: 0px;
+  left: 40%;
+  transform-origin: left bottom;
+}
+.checkboxWrapper input[type="checkbox"]:checked::before {
+  animation: check-01-11 0.4s ease forwards;
+}
+.checkboxWrapper input[type="checkbox"]:checked::after {
+  animation: check-02-11 0.4s ease forwards;
+}
+.checkboxWrapper input[type="checkbox"]:checked + label {
+  color: var(--light-grey);
+  animation: move-11 0.3s ease 0.1s forwards;
+}
+.checkboxWrapper input[type="checkbox"]:checked + label::before {
+  background: var(--light-grey);
+  animation: slice-11 0.4s ease forwards;
+}
+.checkboxWrapper input[type="checkbox"]:checked + label::after {
+  animation: firework-11 0.5s ease forwards 0.1s;
+}
+
+@-webkit-keyframes move-11 {
+  50% {
+    padding-left: 8px;
+    padding-right: 0px;
+  }
+  100% {
+    padding-right: 4px;
+  }
+}
+@keyframes move-11 {
+  50% {
+    padding-left: 8px;
+    padding-right: 0px;
+  }
+  100% {
+    padding-right: 4px;
+  }
+}
+@keyframes slice-11 {
+  60% {
+    width: 100%;
+    left: 4px;
+  }
+  100% {
+    width: 100%;
+    left: -2px;
+    padding-left: 0;
+  }
+}
+@keyframes check-01-11 {
+  0% {
+    width: 4px;
+    top: auto;
+    transform: rotate(0);
+  }
+  50% {
+    width: 0px;
+    top: auto;
+    transform: rotate(0);
+  }
+  51% {
+    width: 0px;
+    top: 8px;
+    transform: rotate(45deg);
+  }
+  100% {
+    width: 5px;
+    top: 8px;
+    transform: rotate(45deg);
+  }
+}
+@keyframes check-02-11 {
+  0% {
+    width: 4px;
+    top: auto;
+    transform: rotate(0);
+  }
+  50% {
+    width: 0px;
+    top: auto;
+    transform: rotate(0);
+  }
+  51% {
+    width: 0px;
+    top: 8px;
+    transform: rotate(-45deg);
+  }
+  100% {
+    width: 10px;
+    top: 8px;
+    transform: rotate(-45deg);
+  }
+}
+@keyframes firework-11 {
+  0% {
+    opacity: 1;
+    box-shadow: 0 0 0 -2px var(--light-red), 0 0 0 -2px var(--light-red),
+      0 0 0 -2px var(--light-red), 0 0 0 -2px var(--light-red),
+      0 0 0 -2px var(--light-red), 0 0 0 -2px var(--light-red);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    box-shadow: 0 -15px 0 0px var(--light-red), 14px -8px 0 0px var(--light-red),
+      14px 8px 0 0px var(--light-red), 0 15px 0 0px var(--light-red),
+      -14px 8px 0 0px var(--light-red), -14px -8px 0 0px var(--light-red);
+  }
+}
+
+.stepsContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+}
+
+.cookingStep {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.6rem;
+}
+
+.stepHeader {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  background-color: var(--light-red);
+  width: 6rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.stepHeader::before {
+  content: "";
+  background-image: url("../../assets/icons/dot.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: 0.5rem;
+  text-align: center;
+}
+
+.stepText {
+  padding-left: 0.5rem;
+  line-height: 1.2rem;
+
+}
+
+@media screen and (max-width: 992px) {
+  .recipeWrapper {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .recipeWrapper {
+    width: 100%;
+  }
+}

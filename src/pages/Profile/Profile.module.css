@@ -1,49 +1,59 @@
 .nameWrapper {
-    display: flex;
-    gap: 0.7rem;
-    align-items: center;
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
 }
 
 .nickname {
-    font-family: "Satoshi 700";
-    font-size: 1.4rem;
+  font-family: "Satoshi 700";
+  font-size: 1.4rem;
 }
 
 .fullName {
-    color: var(--light-grey);
-    font-size: 1.2rem;
+  color: var(--light-grey);
+  font-size: 1.2rem;
 }
 
 .optionsList {
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    margin-top: 1.5rem;
-    border: 1px solid var(--white);
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
 }
 
 .option {
-    display: flex;
+  display: flex;
+  border: 1px solid var(--white);
 }
 
 .option button {
-    font-family: "Satoshi 500";
-    color: var(--white);
-    background-color: transparent;
-    border: 0;
-    outline: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    flex: 1;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    padding: 0.5rem;
+  font-family: "Satoshi 500";
+  color: var(--white);
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  padding: 0.5rem;
 }
 
 .option button img {
-    object-fit: contain;
-    height: 1.5rem;
-    width: 1.5rem;
-    margin-right: 0.5rem;
+  object-fit: contain;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.option.deleteOption {
+  border: 1px solid var(--light-red);
+}
+.option.deleteOption button {
+  color: var(--light-red);
 }

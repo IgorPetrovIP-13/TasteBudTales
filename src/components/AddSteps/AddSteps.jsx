@@ -12,7 +12,7 @@ const AddSteps = () => {
   const dispatch = useDispatch();
 
   function handleInput(index, value) {
-    dispatch(changeStepText({index: index, text: value}))
+    dispatch(changeStepText({ index: index, text: value }));
   }
 
   function handleDelete(index) {
@@ -37,6 +37,7 @@ const AddSteps = () => {
               <span className={styles.counter}>{step.text.length}/500</span>
             </div>
             <button
+              type="button"
               onClick={() => handleDelete(index)}
               className={styles.removeBtn}
             >
@@ -46,6 +47,7 @@ const AddSteps = () => {
         ))}
       </ul>
       <button
+        type="button"
         onClick={() => dispatch(addStep())}
         className={styles.addStepButton}
       >

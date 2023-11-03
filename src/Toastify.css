@@ -1,6 +1,6 @@
 .Toastify__toast {
     font-family: "Satoshi 400";
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
 }
 
 .Toastify__toast-body {

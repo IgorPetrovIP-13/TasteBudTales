@@ -1,15 +1,30 @@
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./Profile.module.css";
-import { Routes } from "react-router-dom";
-import { Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
+import { db } from "../../firebase";
+import { ref, orderByChild, query, equalTo, onValue } from "firebase/database";
+import { useState } from "react";
 
 const Profile = () => {
+  const [activeTab, setActiveTab] = useState(0);
   const user = useAuth();
   const navigation = useNavigate();
+
+  function getSaved() {
+    const myRecipesRef = query(
+      ref(db, "recipes"),
+      orderByChild("userUid"),
+      equalTo(user.uid)
+    );
+    onValue(myRecipesRef, (snapshot) => {
+      console.log(snapshot.val())
+    }, {
+      onlyOnce: true
+    });
+  }
 
   async function logOut() {
     try {
@@ -31,9 +46,33 @@ const Profile = () => {
       </div>
       <ul className={styles.optionsList}>
         <li className={styles.option}>
+          <button onClick={() => setAreSavedOpened(true)}>
+            <img src="./src/assets/icons/saved.svg" alt="saved" />
+            saved
+          </button>
+        </li>
+        <li className={styles.option}>
+          <button onClick={() => getSaved()}>
+            <img src="./src/assets/icons/recipes.svg" alt="recipes" />
+            my recipes
+          </button>
+        </li>
+        <li className={styles.option}>
+          <button onClick={() => {}}>
+            <img src="./src/assets/icons/settings.svg" alt="gear" />
+            settings
+          </button>
+        </li>
+        <li className={styles.option}>
           <button onClick={() => logOut()}>
-            <img src="./src/assets/icons/logout.svg" alt="" />
+            <img src="./src/assets/icons/logout.svg" alt="door" />
             Log out
+          </button>
+        </li>
+        <li className={`${styles.option} ${styles.deleteOption}`}>
+          <button onClick={() => logOut()}>
+            <img src="./src/assets/icons/deleteuser.svg" alt="delete" />
+            Delete acc
           </button>
         </li>
       </ul>

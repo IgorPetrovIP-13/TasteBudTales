@@ -9,7 +9,7 @@ import {
   changeIngredientName,
 } from "../../reducers/constructorReducer";
 
-const units = ["g", "kg", "ml", "l", "tsp", "tbsp", "cup"];
+const units = ["g", "kg", "ml", "l", "-", "tsp", "tbsp", "cup"];
 
 const AddIngredients = () => {
   const ingredientsList = useSelector(
@@ -73,6 +73,7 @@ const AddIngredients = () => {
               placeholder="Name"
             />
             <button
+              type="button"
               onClick={() => handleRemove(index)}
               className={styles.crossBtn}
             >
@@ -86,6 +87,7 @@ const AddIngredients = () => {
         ))}
       </ul>
       <button
+        type="button"
         onClick={() => addingIngredient()}
         className={styles.addIngredientButton}
       >

@@ -16,12 +16,12 @@ const Header = () => {
           <SearchBar />
           {user.isAuth ? (
             <Link className={styles.profileLink} to={"/profile"}>
-              <img src="./src/assets/icons/cook.svg" alt="cook" />
+              <img src="../../src/assets/icons/cook.svg" alt="cook" />
               {user.nickname}
             </Link>
           ) : (
             <Link className={styles.profileLink} to={"/login"}>
-              <img src="./src/assets/icons/cook.svg" alt="cook" />
+              <img src="../../src/assets/icons/cook.svg" alt="cook" />
               Login
             </Link>
           )}

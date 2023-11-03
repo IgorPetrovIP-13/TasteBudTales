@@ -14,7 +14,7 @@ const NoPage = () => {
         4
         <img
           className={styles.panImg}
-          src="./src/assets/icons/pan.svg"
+          src="../../src/assets/icons/pan.svg"
           alt="pan"
         />
         4

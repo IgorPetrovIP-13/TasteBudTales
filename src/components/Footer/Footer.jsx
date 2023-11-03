@@ -5,8 +5,8 @@ const Footer = () => {
     <footer className={styles.footer}>
       <h5>Get in touch</h5>
       <div className={styles.iconsWrapper}>
-        <a target="_blank" href="https://github.com/IgorPetrovIP-13"><img src="./src/assets/icons/github.svg" alt="github" /></a>
-        <a target="_blank" href="https://t.me/pidodinero"><img src="./src/assets/icons/telegram.svg" alt="telegram" /></a>
+        <a target="_blank" href="https://github.com/IgorPetrovIP-13"><img src="../../src/assets/icons/github.svg" alt="github" /></a>
+        <a target="_blank" href="https://t.me/pidodinero"><img src="../../src/assets/icons/telegram.svg" alt="telegram" /></a>
       </div>
       <p className={styles.rules}>
         The website is not protected by any copyright. You are free to do

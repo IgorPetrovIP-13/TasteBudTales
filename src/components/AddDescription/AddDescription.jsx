@@ -19,9 +19,9 @@ const AddDescription = () => {
         className={styles.commentary}
         placeholder="Enter short description"
         spellCheck={false}
-        maxLength={150}
+        maxLength={250}
       />
-      <span className={styles.counter}>{commentary.length}/150</span>
+      <span className={styles.counter}>{commentary.length}/250</span>
     </div>
   );
 };
