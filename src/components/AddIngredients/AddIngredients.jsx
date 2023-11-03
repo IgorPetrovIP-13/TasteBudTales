@@ -8,6 +8,8 @@ import {
   changeIngredientUnit,
   changeIngredientName,
 } from "../../reducers/constructorReducer";
+import plus from "@/assets/icons/plus.svg"
+import cross from "@/assets/icons/cross.svg";
 
 const units = ["g", "kg", "ml", "l", "-", "tsp", "tbsp", "cup"];
 
@@ -79,7 +81,7 @@ const AddIngredients = () => {
             >
               <img
                 className={styles.crossIcon}
-                src="./src/assets/icons/cross.svg"
+                src={cross}
                 alt="cross"
               />
             </button>
@@ -91,7 +93,7 @@ const AddIngredients = () => {
         onClick={() => addingIngredient()}
         className={styles.addIngredientButton}
       >
-        <img src="./src/assets/icons/plus.svg" alt="plus" />
+        <img src={plus} alt="plus" />
         Add Ingredient
       </button>
     </>

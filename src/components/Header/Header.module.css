@@ -19,7 +19,7 @@
 
 .logoLink {
     cursor: pointer;
-    background-image: url("../../src/assets/icons/logo.png");
+    background-image: url("@/assets/icons/logo.png");
     height: 1.9rem;
     width: 10rem;
     background-size: contain;

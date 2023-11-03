@@ -2,6 +2,7 @@ import { useRef } from "react";
 import styles from "./AddImg.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { changeMainImg } from "../../reducers/constructorReducer";
+import camera from "@/assets/icons/camera.svg"
 
 const AddImg = () => {
   const file = useSelector((state) => state.recipeConstructor.image);
@@ -66,7 +67,7 @@ const AddImg = () => {
         <>
           <img
             className={styles.dragImage}
-            src="./src/assets/icons/camera.svg"
+            src={camera}
             alt="addImg"
           />
           <p className={styles.dragText}>Drag photo here</p>
