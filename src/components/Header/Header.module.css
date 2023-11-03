@@ -19,7 +19,7 @@
 
 .logoLink {
     cursor: pointer;
-    background-image: url("~@/assets/icons/logo.png");
+    background-image: url("@/assets/icons/logo.png");
     height: 1.9rem;
     width: 10rem;
     background-size: contain;
@@ -63,7 +63,7 @@
     .logoLink {
         height: 1.6rem;
         width: 1.9rem;
-        background-image: url("~@/assets/icons/logomobile.png");
+        background-image: url("@/assets/icons/logomobile.png");
     }
     .rightContainer {
         column-gap: 0.5rem;
