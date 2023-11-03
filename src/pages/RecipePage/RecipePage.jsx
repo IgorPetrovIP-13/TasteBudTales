@@ -8,7 +8,7 @@ import Comments from "../../components/Comments/Comments";
 import { Link } from "react-router-dom";
 import SaveShareBlock from "../../components/SaveShareBlock/SaveShareBlock";
 import ingredientsSvg from "@/assets/icons/ingredients.svg";
-import cookingStepsSvg from "@/assets/icons/ingredients.svg";
+import cookingStepsSvg from "@/assets/icons/cookingSteps.svg";
 
 const RecipePage = () => {
   const { id } = useParams();
