@@ -2,14 +2,12 @@ import styles from "./ClosedRecipeCard.module.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
-import { db } from "../../firebase";
-import { ref, update, get, onValue, off } from "firebase/database";
-import { toast } from "react-toastify";
 import saveSvg from "@/assets/icons/save.svg";
 import saveClicked from "@/assets/icons/saveClicked.svg";
 import clock from "@/assets/icons/clock.svg";
 import serving from "@/assets/icons/portion.svg";
 import complexitySvg from "@/assets/icons/complexity.svg";
+import { checkIsSaved, handleSave } from "../../utils/firebaseUtils";
 
 const ClosedRecipeCard = ({
   imgLink,
@@ -23,44 +21,14 @@ const ClosedRecipeCard = ({
   const [isImgLoading, setIsImgLoading] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
   const user = useAuth();
-  const userRef = ref(db, "users/" + user.uid);
 
   const handleImageLoad = () => {
     setIsImgLoading(false);
   };
 
   useEffect(() => {
-    onValue(ref(db, "users/" + user.uid), (snapshot) => {
-      if (snapshot.val().saved !== undefined) {
-        if (snapshot.val().saved.includes(recipeID)) {
-          setIsSaved(true);
-        } else {
-          setIsSaved(false);
-        }
-      }
-      else {
-        setIsSaved(false);
-      }
-    });
-    return () => {
-      off(userRef)
-    }
+    checkIsSaved(recipeID, setIsSaved, user.uid);
   }, []);
-
-  async function handleSave() {
-    try {
-      const userSnapshot = await get(userRef);
-      const userData = userSnapshot.val();
-      const savedSet = new Set(userData.saved || []);
-      isSaved ? savedSet.delete(recipeID) : savedSet.add(recipeID);
-      await update(userRef, {
-        saved: [...savedSet],
-      });
-      toast.success(isSaved ? "Recipe unsaved" : "Recipe saved");
-    } catch (e) {
-      console.error(e);
-    }
-  }
 
   return (
     <div className={styles.wrapper}>
@@ -68,18 +36,14 @@ const ClosedRecipeCard = ({
         (userID === user.uid ? (
           <button className={styles.editButton}>edit</button>
         ) : (
-          <button onClick={() => handleSave()} className={styles.saveButton}>
-            <img
-              src={
-                !isSaved
-                  ? saveSvg
-                  : saveClicked
-              }
-              alt="save"
-            />
+          <button
+            onClick={() => handleSave(isSaved, recipeID, setIsSaved, user.uid)}
+            className={styles.saveButton}
+          >
+            <img src={!isSaved ? saveSvg : saveClicked} alt="save" />
           </button>
         ))}
-      <Link to={`/recipes/${recipeID}`} >
+      <Link to={`/recipes/${recipeID}`}>
         <div className={styles.imgWrapper}>
           {isImgLoading && (
             <div className={styles.imgPreloader}>

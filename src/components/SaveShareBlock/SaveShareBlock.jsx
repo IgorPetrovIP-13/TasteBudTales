@@ -8,13 +8,14 @@ import {
 } from "react-share";
 import { useAuth } from "../../hooks/useAuth";
 import { useState, useEffect } from "react";
-import { ref, onValue, update, off, get } from "firebase/database";
+import { ref, onValue, off } from "firebase/database";
 import { db } from "../../firebase";
 import save from "@/assets/icons/save.svg";
 import saveClicked from "@/assets/icons/saveClicked.svg";
-import share from "@/assets/icons/share.svg"
+import share from "@/assets/icons/share.svg";
+import { handleSave } from "../../utils/firebaseUtils";
 
-const SaveShareBlock = ({ id, isAutor, tags }) => {
+const SaveShareBlock = ({ id, isAuthor, tags }) => {
   const currentUrl = window.location.href;
   const [isSaved, setIsSaved] = useState(false);
   const user = useAuth();
@@ -37,21 +38,6 @@ const SaveShareBlock = ({ id, isAutor, tags }) => {
     };
   }, []);
 
-  async function handleSave() {
-    try {
-      const userSnapshot = await get(userRef);
-      const userData = userSnapshot.val();
-      const savedSet = new Set(userData.saved || []);
-      isSaved ? savedSet.delete(id) : savedSet.add(id);
-      await update(userRef, {
-        saved: [...savedSet],
-      });
-      toast.success(isSaved ? "Recipe unsaved" : "Recipe saved");
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
   function handleCopy() {
     try {
       window.navigator.clipboard.writeText(currentUrl);
@@ -67,12 +53,12 @@ const SaveShareBlock = ({ id, isAutor, tags }) => {
       {user.isAuth && (
         <div className={styles.btnWrapper}>
           <h5 className={styles.optionH}>
-            {isAutor ? "Edit" : isSaved ? "Unsave" : "Save"}:
+            {isAuthor ? "Edit" : isSaved ? "Unsave" : "Save"}:
           </h5>
-          {isAutor ? (
+          {isAuthor ? (
             <button className={styles.editBtn}>Edit</button>
           ) : (
-            <button onClick={() => handleSave()} className={styles.saveBtn}>
+            <button onClick={() => handleSave(isSaved, id, setIsSaved, user.uid)} className={styles.saveBtn}>
               <img
                 src={
                   !isSaved

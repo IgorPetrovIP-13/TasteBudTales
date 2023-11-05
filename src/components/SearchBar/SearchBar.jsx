@@ -7,9 +7,10 @@ const SearchBar = () => {
   function handleChange(e) {
     setSearchValue(e.target.value);
   }
+
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(searchValue);
+    console.log(searchValue.split(" "));
     setSearchValue("");
   }
 
