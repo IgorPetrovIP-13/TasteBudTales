@@ -1,5 +1,6 @@
 import LogForm from "../../components/LoginRegistration/LogForm";
 import styles from "./SignInUp.module.css";
+import recipeKeeper from "@/assets/icons/recipe-keeper.svg";
 
 const Login = () => {
   return (
@@ -8,7 +9,7 @@ const Login = () => {
         <img
           style={{margin: "-1rem"}}
           className={styles.img}
-          src="./src/assets/icons/recipe-keeper.svg"
+          src={recipeKeeper}
           alt="chefSvg"
         />
         <p>Ready to post a new recipe ?</p>

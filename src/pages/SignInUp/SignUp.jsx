@@ -1,5 +1,6 @@
 import RegForm from "../../components/LoginRegistration/RegForm";
 import styles from "./SignInUp.module.css";
+import chef from "@/assets/icons/chef.svg";
 
 const Register = () => {
   return (
@@ -7,7 +8,7 @@ const Register = () => {
       <div style={{ marginRight: "4rem" }} className={styles.imgWrapper}>
         <img
           className={styles.img}
-          src="./src/assets/icons/chef.svg"
+          src={chef}
           alt="chefSvg"
         />
         <p>Become a new chef !</p>
