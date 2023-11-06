@@ -48,7 +48,6 @@ const Pagination = (props) => {
             </li>
           );
         }
-
         return (
           <li
             className={`${styles.paginationItem} ${
