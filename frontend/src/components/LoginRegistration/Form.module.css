@@ -89,11 +89,11 @@
 
 .error {
     pointer-events: none;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     position: absolute;
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 0.15rem 0.3rem;
-    bottom: -1.35rem;
+    bottom: -1.55rem;
     left: 0;
     color: var(--dark-red);
     background-color: var(--light-red);
@@ -179,7 +179,7 @@
     .error {
         font-size: 0.7rem;
         padding: 0.1rem 0.2rem;
-        bottom: -1.1rem;
+        bottom: -1.35rem;
     }
     .submitButton {
         padding: 0 0.7rem;

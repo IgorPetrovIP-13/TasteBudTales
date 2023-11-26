@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage/HomePage";
 import NoPage from "./pages/NoPage/NoPage";
 import SignIn from "./pages/SignInUp/SignIn";
 import SignUp from "./pages/SignInUp/SignUp";
@@ -53,7 +54,7 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<></>} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/constructor" element={<RecipeConstructor />} />
         <Route path="/login" element={<SignIn />} />
