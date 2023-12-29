@@ -1,9 +1,9 @@
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
-import SearchBar from "../SearchBar/SearchBar";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import { useAuth } from "../../hooks/useAuth";
 import cook from "@/assets/icons/cook.svg";
+import search from "@/assets/icons/search.svg"
 
 const Header = () => {
 
@@ -14,7 +14,7 @@ const Header = () => {
       <nav className={styles.nav}>
         <Link to="/" className={styles.logoLink}></Link>
         <div className={styles.rightContainer}>
-          <SearchBar />
+          <Link to={"/search?query="} className={styles.search}><img src={search} alt="s" /></Link>
           {user.isAuth ? (
             <Link className={styles.profileLink} to={"/profile"}>
               <img src={cook} alt="cook" />
@@ -23,7 +23,7 @@ const Header = () => {
           ) : (
             <Link className={styles.profileLink} to={"/login"}>
               <img src={cook} alt="cook" />
-              Login
+              Log in
             </Link>
           )}
         </div>

@@ -1,0 +1,138 @@
+.barWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  row-gap: 2rem;
+}
+
+.inputWrapper {
+    position:relative;
+    display: flex;
+    justify-content: center;
+    width: 70%;
+}
+
+.searchInput {
+  font-family: "Satoshi 400";
+  border: 0;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--grey);
+  background-color: transparent;
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.3rem;
+  color: var(--white);
+}
+
+.searchInput:focus {
+  outline: 0;
+  border-bottom: 1px solid var(--white);
+}
+
+.error {
+  pointer-events: none;
+  font-size: 0.8rem;
+  position: absolute;
+  border-radius: 8px;
+  padding: 0.15rem 0.3rem;
+  bottom: -1.55rem;
+  left: 0;
+  color: var(--dark-red);
+  background-color: var(--light-red);
+}
+
+.searchBtn {
+  font-family: "Satoshi 500";
+  background-color: var(--dark-grey-secondary);
+  display: flex;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+  border-radius: 1rem;
+  padding: 0 1rem 0 1rem;
+  color: var(--white);
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  height: 2rem;
+  text-transform: capitalize;
+  min-width: 64px;
+  max-width: 100%;
+  border: none;
+  text-align: center;
+  margin-top: 1rem;
+  will-change: transform;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s;
+  &:hover {
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+      0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  }
+  &:active {
+    transform: translateY(4px);
+    scale: 0.93;
+  }
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 65px;
+  height: 65px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.resultsWrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.resultsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .resultsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .resultsGrid {
+    gap: 0.5rem;
+  }
+  .inputWrapper {
+    width: 80%;
+  }
+}

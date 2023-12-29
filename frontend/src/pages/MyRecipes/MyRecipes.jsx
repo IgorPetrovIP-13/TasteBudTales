@@ -1,15 +1,15 @@
 import { useState, useEffect, useMemo } from "react";
-import { useParams } from "react-router-dom";
 import { firestoreDb } from "../../firebase";
 import { query, collection, where, getDocs, orderBy } from "firebase/firestore";
-import styles from "./RecipesByCategory.module.css";
+import styles from "./MyRecipes.module.css";
 import ClosedRecipeCard from "../../components/ClosedRecipeCard/ClosedRecipeCard";
 import Pagination from "../../components/Pagination/Pagination";
+import { useAuth } from "../../hooks/useAuth";
 
-const RecipesByCategory = () => {
+const MyRecipes = () => {
   const [recipes, setRecipes] = useState([]);
+  const user = useAuth();
   const [itemsPerPage, setItemsPerPage] = useState(6);
-  const { category } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const currentPageData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * itemsPerPage;
@@ -30,7 +30,7 @@ const RecipesByCategory = () => {
       const recipesRef = query(
         collection(firestoreDb, "recipes"),
         orderBy("timestamp", "desc"),
-        where("category", "==", category)
+        where("userUid", "==", user.uid)
       );
       const snapshot = await getDocs(recipesRef);
       !snapshot.empty
@@ -43,11 +43,11 @@ const RecipesByCategory = () => {
         : setRecipes([]);
     }
     getRecipes();
-  }, [category]);
+  }, [user.isAuth]);
 
   return (
     <section>
-      <h1 className={styles.mainHeader}>{category.split("_").join(" ")}</h1>
+      <h1 className={styles.mainHeader}>My recipes</h1>
       {recipes.length > 0 ? (
         <>
           <div className={styles.recipesGrid}>
@@ -81,4 +81,4 @@ const RecipesByCategory = () => {
   );
 };
 
-export default RecipesByCategory;
+export default MyRecipes;

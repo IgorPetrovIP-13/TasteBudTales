@@ -1,0 +1,120 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    margin: auto;
+    width: 70%;
+    transition: 0.5s width ease-in-out;
+}
+
+.wrapper > form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+}
+
+.heading {
+    font-size: 1.2rem;
+    font-family: "Satoshi 700";
+    padding-bottom: 2rem;
+}
+
+.inputWrapper {
+    position:relative;
+	margin-bottom: 3.2rem;
+}
+
+.inputLabel {
+	position:absolute;
+	left:0;
+    pointer-events: none;
+    top:-0.75rem;
+	font-size: 0.875rem;
+}
+
+.input {
+    font-family: "Satoshi 400";
+    border:0;
+    font-size: 1rem;
+    border-bottom:1px solid var(--grey);  
+    background-color: transparent;
+    width:100%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.3rem;
+    color: var(--white);
+}
+
+.input:focus{
+    outline: 0;
+    border-bottom: 1px solid var(--white);
+}
+
+.inputTextArea {
+    font-family: "Satoshi 400";
+    border:0;
+    font-size: 1rem;
+    border-bottom:1px solid var(--grey);  
+    background-color: transparent;
+    width:100%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.3rem;
+    color: var(--white);
+    resize: none;
+}
+
+.inputTextArea:focus{
+    outline: 0;
+    border-bottom: 1px solid var(--white);
+}
+
+.error {
+    pointer-events: none;
+    font-size: 0.8rem;
+    position: absolute;
+    border-radius: 8px;
+    padding: 0.15rem 0.3rem;
+    bottom: -1.55rem;
+    left: 0;
+    color: var(--dark-red);
+    background-color: var(--light-red);
+}
+
+.submitButton {
+    font-family: "Satoshi 700";
+    background-color: var(--dark-grey-secondary);
+    outline: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    color: var(--white);
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    height: 2rem;
+    text-transform: uppercase;
+    min-width: 64px;
+    max-width: 100%;
+    border: none;
+    width: 150px;
+    text-align: center;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all .3s;
+    &:hover {
+        box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+    }
+    &:active {
+        transform: translateY(4px);
+        scale: 0.93;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .wrapper {
+        width: 85%;
+    }
+}

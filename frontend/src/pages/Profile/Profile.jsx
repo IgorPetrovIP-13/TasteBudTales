@@ -1,30 +1,13 @@
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./Profile.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
-import { db } from "../../firebase";
-import { ref, orderByChild, query, equalTo, onValue } from "firebase/database";
-import { useState } from "react";
 
 const Profile = () => {
-  const [activeTab, setActiveTab] = useState(0);
   const user = useAuth();
   const navigation = useNavigate();
-
-  function getSaved() {
-    const myRecipesRef = query(
-      ref(db, "recipes"),
-      orderByChild("userUid"),
-      equalTo(user.uid)
-    );
-    onValue(myRecipesRef, (snapshot) => {
-      console.log(snapshot.val())
-    }, {
-      onlyOnce: true
-    });
-  }
 
   async function logOut() {
     try {
@@ -39,43 +22,60 @@ const Profile = () => {
   return (
     <section>
       <div className={styles.nameWrapper}>
-        <h1 className={styles.nickname}>{user.nickname}</h1>
-        {user.fullName && (
-          <h2 className={styles.fullName}>({user.fullName})</h2>
-        )}
+        <h1 className={styles.nickname}>
+          Hello, {!user.isAuth ? "STRANGER" : user.nickname}
+        </h1>
       </div>
-      <ul className={styles.optionsList}>
-        <li className={styles.option}>
-          <button onClick={() => setAreSavedOpened(true)}>
-            <img src="./src/assets/icons/saved.svg" alt="saved" />
-            saved
-          </button>
-        </li>
-        <li className={styles.option}>
-          <button onClick={() => getSaved()}>
-            <img src="./src/assets/icons/recipes.svg" alt="recipes" />
-            my recipes
-          </button>
-        </li>
-        <li className={styles.option}>
-          <button onClick={() => {}}>
-            <img src="./src/assets/icons/settings.svg" alt="gear" />
-            settings
-          </button>
-        </li>
-        <li className={styles.option}>
-          <button onClick={() => logOut()}>
-            <img src="./src/assets/icons/logout.svg" alt="door" />
-            Log out
-          </button>
-        </li>
-        <li className={`${styles.option} ${styles.deleteOption}`}>
-          <button onClick={() => logOut()}>
-            <img src="./src/assets/icons/deleteuser.svg" alt="delete" />
-            Delete acc
-          </button>
-        </li>
-      </ul>
+      {user.isAuth && (
+        <ul className={styles.optionsList}>
+          <li className={styles.card}>
+            <Link className={styles.box} to={"myrecipes"}>
+              <div className={styles.content}>
+                <img src="../../src/assets/icons/recipes.svg" />
+                <h3>My recipes</h3>
+                <p>Here you can view and manage your own recipes</p>
+              </div>
+            </Link>
+          </li>
+          <li className={styles.card}>
+            <Link className={styles.box} to={"saved"}>
+              <div className={styles.content}>
+                <img src="../../src/assets/icons/saved.svg" />
+                <h3>Saved</h3>
+                <p>Here you can view and manage your saved recipes</p>
+              </div>
+            </Link>
+          </li>
+          <li className={styles.card}>
+            <Link className={styles.box} to="settings">
+              <div className={styles.content}>
+                <img src="../../src/assets/icons/settings.svg" />
+                <h3>Settings</h3>
+                <p>
+                  Update your bio, profile name or security settings. Adding or
+                  modifying this information helps others to better recognize
+                  your profile.
+                </p>
+              </div>
+            </Link>
+          </li>
+          <li className={styles.card}>
+            <button
+              className={`${styles.box} ${styles.logOut}`}
+              onClick={() => logOut()}
+            >
+              <div className={styles.content}>
+                <img src="../../src/assets/icons/logout.svg" />
+                <h3>Log Out</h3>
+                <p>
+                  Your account data will be stored on the server, so you can log
+                  in to your account using your email and password next time.
+                </p>
+              </div>
+            </button>
+          </li>
+        </ul>
+      )}
     </section>
   );
 };

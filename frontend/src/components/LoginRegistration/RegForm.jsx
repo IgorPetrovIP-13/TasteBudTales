@@ -6,8 +6,8 @@ import { auth } from "../../firebase.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../firebase.js";
-import { ref, set } from "firebase/database";
+import { setDoc, doc } from "firebase/firestore";
+import { firestoreDb } from "../../firebase.js";
 import { toast } from "react-toastify";
 
 const ValidationSchema = Yup.object().shape({
@@ -26,113 +26,23 @@ const ValidationSchema = Yup.object().shape({
     .required("Enter your email"),
   password: Yup.string()
     .required("Password is required")
-    .min(6, "Password must be at least 6 characters"),
+    .min(6, "Password must be at least 6 characters")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{6,}$/,
+      "Incorrect password data"
+    ),
   confirmPassword: Yup.string()
     .required("Confirm your password")
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });
 
-const BasicForm = ({ values, errors }) => {
-  return (
-    <Form className={styles.mainForm}>
-      <div className={styles.container}>
-        <div className={styles.inputWrapper}>
-          <Field
-            id="nickNameForm"
-            type="text"
-            name="nickName"
-            className={styles.input}
-          />
-          <label className={styles.inputLabel} htmlFor="nickNameForm">
-            Nickname
-          </label>
-          <ErrorMessage
-            name="nickName"
-            component={"span"}
-            className={styles.error}
-          />
-        </div>
-        <div className={styles.inputWrapper}>
-          <Field
-            id="fullNameForm"
-            type="text"
-            name="fullName"
-            className={styles.input}
-          />
-          <label className={styles.inputLabel} htmlFor="fullNameForm">
-            Full Name (optional)
-          </label>
-          <ErrorMessage
-            name="fullName"
-            component={"span"}
-            className={styles.error}
-          />
-        </div>
-        <div className={styles.inputWrapper}>
-          <Field
-            id="emailForm"
-            type="text"
-            name="email"
-            className={styles.input}
-          />
-          <label className={styles.inputLabel} htmlFor="emailForm">
-            Email
-          </label>
-          <ErrorMessage
-            name="email"
-            component={"span"}
-            className={styles.error}
-          />
-        </div>
-        <div className={styles.inputWrapper}>
-          <Field
-            id="passwordForm"
-            type="password"
-            name="password"
-            className={styles.input}
-          />
-          <label className={styles.inputLabel} htmlFor="passwordForm">
-            Password
-          </label>
-          <ErrorMessage
-            name="password"
-            component={"span"}
-            className={styles.error}
-          />
-        </div>
-        <div className={styles.inputWrapper}>
-          <Field
-            id="confirmPasswordForm"
-            type="text"
-            name="confirmPassword"
-            className={styles.input}
-          />
-          <label className={styles.inputLabel} htmlFor="confirmPasswordForm">
-            Confirm password
-          </label>
-          <ErrorMessage
-            name="confirmPassword"
-            component={"span"}
-            className={styles.error}
-          />
-        </div>
-      </div>
-      <button
-        data-testid="submit-button"
-        type="submit"
-        className={styles.submitButton}
-      >
-        Create an account
-      </button>
-    </Form>
-  );
-};
-
 function RegForm() {
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   async function handleSubmit(values) {
+    setIsSubmitting(true);
     try {
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
@@ -140,10 +50,20 @@ function RegForm() {
         values.password
       );
       const user = userCredentials.user;
-      await set(ref(db, "users/" + user.uid), {
-        nickname: values.nickName,
-        fullName: values.fullName,
-      });
+      const userRef = doc(firestoreDb, "users", user?.uid);
+      await setDoc(
+        userRef,
+        {
+          nickname: values.nickName.trim(),
+          fullName: values.fullName.trim(),
+          description: "",
+          saved: [],
+        },
+        {
+          maxAttempts: 1,
+          backoffMillis: 3000,
+        }
+      );
       navigate("/profile");
       toast.success(`Signed Up as ${values.nickName}`);
     } catch (error) {
@@ -155,8 +75,10 @@ function RegForm() {
           setErrorMessage("Invalid email");
           break;
         default:
-          console.error(error.code);
+          console.error(error);
       }
+    }finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -185,7 +107,101 @@ function RegForm() {
         }}
         validationSchema={ValidationSchema}
       >
-        {BasicForm}
+        <Form className={styles.mainForm}>
+          <div className={styles.container}>
+            <div className={styles.inputWrapper}>
+              <Field
+                id="nickNameForm"
+                type="text"
+                name="nickName"
+                className={styles.input}
+              />
+              <label className={styles.inputLabel} htmlFor="nickNameForm">
+                Nickname
+              </label>
+              <ErrorMessage
+                name="nickName"
+                component={"span"}
+                className={styles.error}
+              />
+            </div>
+            <div className={styles.inputWrapper}>
+              <Field
+                id="fullNameForm"
+                type="text"
+                name="fullName"
+                className={styles.input}
+              />
+              <label className={styles.inputLabel} htmlFor="fullNameForm">
+                Full Name (optional)
+              </label>
+              <ErrorMessage
+                name="fullName"
+                component={"span"}
+                className={styles.error}
+              />
+            </div>
+            <div className={styles.inputWrapper}>
+              <Field
+                id="emailForm"
+                type="text"
+                name="email"
+                className={styles.input}
+              />
+              <label className={styles.inputLabel} htmlFor="emailForm">
+                Email
+              </label>
+              <ErrorMessage
+                name="email"
+                component={"span"}
+                className={styles.error}
+              />
+            </div>
+            <div className={styles.inputWrapper}>
+              <Field
+                id="passwordForm"
+                type="password"
+                name="password"
+                className={styles.input}
+              />
+              <label className={styles.inputLabel} htmlFor="passwordForm">
+                Password
+              </label>
+              <ErrorMessage
+                name="password"
+                component={"span"}
+                className={styles.error}
+              />
+            </div>
+            <div className={styles.inputWrapper}>
+              <Field
+                id="confirmPasswordForm"
+                type="text"
+                name="confirmPassword"
+                className={styles.input}
+              />
+              <label
+                className={styles.inputLabel}
+                htmlFor="confirmPasswordForm"
+              >
+                Confirm password
+              </label>
+              <ErrorMessage
+                name="confirmPassword"
+                component={"span"}
+                className={styles.error}
+              />
+            </div>
+          </div>
+          <button
+            data-testid="submit-button"
+            type="submit"
+            className={styles.submitButton}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Creating new account..." : "Create an account"}
+          </button>
+        </Form>
       </Formik>
     </div>
   );

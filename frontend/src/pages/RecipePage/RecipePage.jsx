@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { db } from "../../firebase";
-import { query, ref, equalTo, orderByKey, get } from "firebase/database";
 import styles from "./RecipePage.module.css";
 import { useAuth } from "../../hooks/useAuth";
 import Comments from "../../components/Comments/Comments";
@@ -9,19 +7,26 @@ import { Link } from "react-router-dom";
 import SaveShareBlock from "../../components/SaveShareBlock/SaveShareBlock";
 import ingredientsSvg from "@/assets/icons/ingredients.svg";
 import cookingStepsSvg from "@/assets/icons/cookingSteps.svg";
+import { firestoreDb } from "../../firebase";
+import { getDoc, doc } from "firebase/firestore";
+import clock from "@/assets/icons/clock.svg";
+import serving from "@/assets/icons/portion.svg";
+import complexitySvg from "@/assets/icons/complexity.svg";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 const RecipePage = () => {
   const { id } = useParams();
   const [info, setInfo] = useState(null);
   const user = useAuth();
+  const breakpoint = useBreakpoint();
 
   useEffect(() => {
     async function getData() {
-      const recipesRef = query(ref(db, "recipes"), orderByKey(), equalTo(id));
-      const snapshot = await get(recipesRef);
-      const data = await snapshot.val();
-      if (data) {
-        setInfo(data[Object.keys(data)[0]]);
+      const documentRef = doc(firestoreDb, "recipes", id);
+      const documentSnapshot = await getDoc(documentRef);
+      if (documentSnapshot.exists()) {
+        const data = documentSnapshot.data();
+        setInfo(data);
       } else {
         setInfo(null);
       }
@@ -42,6 +47,27 @@ const RecipePage = () => {
             </h2>
             <div className={styles.imgWrapper}>
               <img src={info.imageLink} alt="recipeImg" />
+            </div>
+            <div className={styles.characteristics}>
+              <span>
+                <img src={clock} alt="" />
+                {info.cookingTime > 60
+                  ? Math.floor(info.cookingTime / 60) +
+                    "h." +
+                    " " +
+                    (info.cookingTime % 60) +
+                    "m."
+                  : info.cookingTime + "m."}{" "}
+                {breakpoint !== "small" && "to cook"}
+              </span>
+              <span>
+                <img src={serving} alt="" />
+                {info.servingsNum} {breakpoint !== "small" && "servings"}
+              </span>
+              <span>
+                <img src={complexitySvg} alt="" />
+                {info.cookingComplexity} {breakpoint !== "small" && "to cook"}
+              </span>
             </div>
           </div>
           <hr className={styles.sectionHr} />
@@ -79,7 +105,7 @@ const RecipePage = () => {
             </h2>
             <div className={styles.stepsContainer}>
               {info.steps.map((step, index) => (
-                <div className={styles.cookingStep}>
+                <div key={index} className={styles.cookingStep}>
                   <h3 className={styles.stepHeader}>Step {index + 1}</h3>
                   <p className={styles.stepText}>{step.text}</p>
                 </div>

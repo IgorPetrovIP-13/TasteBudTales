@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -12,12 +12,11 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APP_ID,
   measurementId: import.meta.env.VITE_MEASUREMENT_ID,
   databaseURL: import.meta.env.VITE_DATABASE_URL,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
-const db = getDatabase(firebaseApp);
 const storage = getStorage(firebaseApp);
+const firestoreDb = getFirestore(firebaseApp);
 
-export { auth, db, storage };
+export { auth, storage, firestoreDb };

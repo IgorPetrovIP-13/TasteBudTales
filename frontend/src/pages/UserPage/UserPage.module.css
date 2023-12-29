@@ -1,0 +1,26 @@
+.nickName {
+    font-family: "Satoshi 700";
+    font-size: 1.4rem;
+}
+
+.fullName {
+    color: var(--light-grey);
+}
+
+.description {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.latestRecipes {
+    margin-top: 2rem;
+    font-size: 1.4rem;
+    font-family: "Satoshi 700";
+}
+
+.recipesGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}

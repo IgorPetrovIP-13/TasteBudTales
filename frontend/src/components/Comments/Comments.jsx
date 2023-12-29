@@ -1,14 +1,14 @@
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
-import { get, ref, update } from "firebase/database";
 import { toast } from "react-toastify";
-import { db } from "../../firebase";
+import { firestoreDb } from "../../firebase";
 import styles from "./Comments.module.css";
 import TextareaAutosize from "react-textarea-autosize";
 import { Rating } from "react-simple-star-rating";
 import { getCurrentDate } from "../../utils/dateFormatting";
 import { Link } from "react-router-dom";
-import cook from "@/assets/icons/cook.svg"
+import cook from "@/assets/icons/cook.svg";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const fillColorArray = ["#f17a45", "#f19745", "#f1a545", "#f1b345", "#f1d045"];
 
@@ -40,9 +40,13 @@ const LeaveCommentForm = ({ resetFunc, recipeRef, uid }) => {
       toast.error(fieldsCheck);
     } else {
       try {
-        const recipeSnapshot = await get(recipeRef);
-        const recipeData = await recipeSnapshot.val();
+        const recipeSnapshot = await getDoc(recipeRef);
+        const recipeData = await recipeSnapshot.data();
         const commentsArr = recipeData.comments || [];
+        const newLength =
+          recipeData.userUid === user.uid
+            ? recipeData.userCommentsLength
+            : recipeData.userCommentsLength + 1;
         commentsArr.unshift({
           nickname: user.nickname,
           uid: user.uid,
@@ -50,7 +54,10 @@ const LeaveCommentForm = ({ resetFunc, recipeRef, uid }) => {
           text: commentText,
           date: getCurrentDate(),
         });
-        await update(recipeRef, { comments: commentsArr });
+        await updateDoc(recipeRef, {
+          comments: commentsArr,
+          userCommentsLength: newLength,
+        });
         toast.success("New comment added");
         resetFunc();
       } catch (e) {
@@ -108,13 +115,13 @@ const Comments = ({ id, recipeUid }) => {
   const [comments, setComments] = useState([]);
   const [displayComments, setDisplayComments] = useState(comments);
   const [tabNum, setTabNum] = useState(1);
-  const recipeRef = ref(db, "recipes/" + id);
+  const recipeRef = doc(firestoreDb, "recipes", id);
 
   useEffect(() => {
     async function getComments() {
       try {
-        const snapshot = await get(recipeRef);
-        const res = await snapshot.val();
+        const snapshot = await getDoc(recipeRef);
+        const res = snapshot.data();
         if (res.comments !== undefined) {
           setComments(res.comments);
           setDisplayComments(res.comments);
@@ -191,8 +198,9 @@ const Comments = ({ id, recipeUid }) => {
                 </select>
               </div>
               <div className={styles.allComments}>
-                {displayComments.map((comment) => (
+                {displayComments.map((comment, index) => (
                   <div
+                    key={comment.uid + index}
                     className={`${styles.userComment} ${
                       comment.uid === recipeUid ? styles.byAuthor : ""
                     }`}

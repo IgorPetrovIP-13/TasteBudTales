@@ -2,19 +2,19 @@ import styles from "./SubmitConstructor.module.css";
 import { getCurrentDate } from "../../utils/dateFormatting";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { db } from "../../firebase";
 import { storage } from "../../firebase";
 import {
   ref as storageRef,
   uploadBytes,
   getDownloadURL,
 } from "firebase/storage";
-import { ref as dbRef, set } from "firebase/database";
 import { areAllFieldsFilled } from "../../utils/checkObjects";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { clearConstructor } from "../../reducers/constructorReducer";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { firestoreDb } from "../../firebase";
 
 const SubmitConstructor = () => {
   const newRecipe = useSelector((state) => state.recipeConstructor);
@@ -23,11 +23,25 @@ const SubmitConstructor = () => {
   const navigate = useNavigate();
   const user = useAuth();
 
+  const cleanName = newRecipe.name.replace(/\s+/g, " ").trim();
+  const cleanIngredients = newRecipe.ingredients.map((ingredient) => {
+    return {
+      weight: ingredient.weight.replace(/\s+/g, " ").trim(),
+      unit: ingredient.unit,
+      name: ingredient.name.replace(/\s+/g, " ").trim()
+    };
+  });
+  const cleanSteps = newRecipe.steps.map((step) => {
+    return {
+      text: step.text.replace(/\s+/g, " ").trim()
+    }
+  });
+
   function checkRecipe() {
     switch (true) {
-      case !newRecipe.name:
+      case !cleanName:
         return "No dish name";
-      case newRecipe.name.length <= 3:
+      case cleanName.length <= 3:
         return "Dish name length must be at least 3";
       case !newRecipe.image:
         return "No dish image";
@@ -43,13 +57,13 @@ const SubmitConstructor = () => {
         return "Recipe must be for at least one serving";
       case Number(newRecipe.servingsNum) > 100:
         return "Recipe must be for <100 servings";
-      case newRecipe.ingredients.length <= 1:
+      case cleanIngredients.length <= 1:
         return "Recipe must contain at least 2 ingredients";
-      case !areAllFieldsFilled(newRecipe.ingredients):
+      case !areAllFieldsFilled(cleanIngredients):
         return "Some ingredients are invalid";
-      case newRecipe.steps.length < 1:
+      case cleanSteps.length < 1:
         return "Recipe must contain at least 1 step";
-      case !areAllFieldsFilled(newRecipe.steps):
+      case !areAllFieldsFilled(cleanSteps):
         return "Some steps are invalid";
       default:
         return null;
@@ -71,24 +85,34 @@ const SubmitConstructor = () => {
           newRecipe.image.type.split("/")[1]
         }`
       );
-      const recipesRef = dbRef(db, "recipes/" + uniqueKey);
+      const recipesRef = doc(firestoreDb, "recipes", uniqueKey);
       try {
         await uploadBytes(imageRef, newRecipe.image);
         const imageLink = await getDownloadURL(imageRef);
-        await set(recipesRef, {
-          name: newRecipe.name.trim(),
-          imageLink: imageLink,
-          cookingTime: newRecipe.cookingTime,
-          servingsNum: newRecipe.servingsNum,
-          cookingComplexity: newRecipe.cookingComplexity,
-          category: newRecipe.category,
-          description: newRecipe.commentary.trim(),
-          ingredients: newRecipe.ingredients,
-          steps: newRecipe.steps,
-          updateDate: currentDate,
-          userUid: user.uid,
-          nickname: user.nickname
-        });
+        await setDoc(
+          recipesRef,
+          {
+            name: cleanName,
+            imageLink: imageLink,
+            cookingTime: newRecipe.cookingTime,
+            servingsNum: newRecipe.servingsNum,
+            cookingComplexity: newRecipe.cookingComplexity,
+            category: newRecipe.category,
+            description: newRecipe.commentary.trim(),
+            ingredients: cleanIngredients,
+            steps: cleanSteps,
+            updateDate: currentDate,
+            userUid: user.uid,
+            nickname: user.nickname,
+            timestamp: serverTimestamp(),
+            userCommentsLength: 0,
+            comments: [],
+          },
+          {
+            maxAttempts: 1,
+            backoffMillis: 3000,
+          }
+        );
         dispatch(clearConstructor());
         toast.success("New recipe created");
         navigate(`/recipes/${uniqueKey}`);

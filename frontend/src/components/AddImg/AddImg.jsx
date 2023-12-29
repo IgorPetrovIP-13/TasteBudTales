@@ -12,18 +12,26 @@ const AddImg = () => {
 
   const handleFileChange = (event) => {
     event.preventDefault();
-    const file = event.target.files && event.target.files[0];
-    console.log(file);
+    const file = event.target.files ? event.target.files[0] : null;
+    if (file) {
+      dispatch(changeMainImg(file));
+    }
+  };
+
+  const handleDropFileChange = (event) => {
+    event.preventDefault();
+    handleDrag(event, false);
+    const file = event.dataTransfer.files ? event.dataTransfer.files[0] : null;
     if (file) {
       dispatch(changeMainImg(file));
     }
   };
 
   const handleDrag = (event, isDragging) => {
-    if (wrapper.current) {
-      wrapper.current.style.backgroundColor = isDragging ? "#383838" : "";
-    }
     event.preventDefault();
+    if (wrapper.current) {
+      wrapper.current.style.backgroundColor = isDragging ? "#383838" : "var(--dark-grey)";
+    }
   };
 
   const handleDragOver = (event) => {
@@ -32,12 +40,6 @@ const AddImg = () => {
 
   const handleDragLeave = (event) => {
     handleDrag(event, false);
-  };
-
-  const handleDrop = (event) => {
-    handleFileChange(event);
-    handleDrag(event, false);
-    event.preventDefault();
   };
 
   const clearImg = () => {
@@ -50,7 +52,7 @@ const AddImg = () => {
 
   return (
     <div
-      onDrop={handleDrop}
+      onDrop={handleDropFileChange}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       className={styles.imgWrapper}

@@ -14,62 +14,16 @@ const ValidationSchema = Yup.object().shape({
     .required("Enter your email"),
   password: Yup.string()
     .required("Password is required")
-    .min(6, "Password must be at least 6 characters"),
+    .min(6, "Password must be at least 6 characters")
 });
-
-const BasicForm = ({ values, errors }) => {
-  return (
-    <Form className={styles.mainForm}>
-      <div className={styles.container}>
-        <div className={styles.inputWrapper}>
-          <Field
-            id="emailForm"
-            type="text"
-            name="email"
-            className={styles.input}
-          />
-          <label className={styles.inputLabel} htmlFor="surnameForm">
-            Email
-          </label>
-          <ErrorMessage
-            name="email"
-            component={"span"}
-            className={styles.error}
-          />
-        </div>
-        <div className={styles.inputWrapper}>
-          <Field
-            id="passwordForm"
-            type="password"
-            name="password"
-            className={styles.input}
-          />
-          <label className={styles.inputLabel} htmlFor="passwordForm">
-            Password
-          </label>
-          <ErrorMessage
-            name="password"
-            component={"span"}
-            className={styles.error}
-          />
-        </div>
-      </div>
-      <button
-        data-testid="submit-button"
-        type="submit"
-        className={styles.submitButton}
-      >
-        Log in
-      </button>
-    </Form>
-  );
-};
 
 function LogForm() {
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   async function handleSubmit(values) {
+    setIsSubmitting(true);
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
       toast.success("Logged in");
@@ -79,9 +33,13 @@ function LogForm() {
         case "auth/invalid-login-credentials":
           setErrorMessage("Invalid login or password");
           break;
+        case "auth/invalid-credential":
+          setErrorMessage("Invalid login or password");
         default:
           console.error(error.code);
       }
+    }finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -107,7 +65,50 @@ function LogForm() {
         }}
         validationSchema={ValidationSchema}
       >
-        {BasicForm}
+        <Form className={styles.mainForm}>
+          <div className={styles.container}>
+            <div className={styles.inputWrapper}>
+              <Field
+                id="emailForm"
+                type="text"
+                name="email"
+                className={styles.input}
+              />
+              <label className={styles.inputLabel} htmlFor="surnameForm">
+                Email
+              </label>
+              <ErrorMessage
+                name="email"
+                component={"span"}
+                className={styles.error}
+              />
+            </div>
+            <div className={styles.inputWrapper}>
+              <Field
+                id="passwordForm"
+                type="password"
+                name="password"
+                className={styles.input}
+              />
+              <label className={styles.inputLabel} htmlFor="passwordForm">
+                Password
+              </label>
+              <ErrorMessage
+                name="password"
+                component={"span"}
+                className={styles.error}
+              />
+            </div>
+          </div>
+          <button
+            data-testid="submit-button"
+            type="submit"
+            className={styles.submitButton}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Logging in..." : "Log in"}
+          </button>
+        </Form>
       </Formik>
     </div>
   );

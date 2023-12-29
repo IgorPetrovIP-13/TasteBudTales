@@ -3,12 +3,19 @@
   flex-direction: column;
   position: relative;
   color: var(--white);
+  background-color: var(--dark-grey);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0px 0px 5px 3px rgba(83, 83, 83, 0.5);
 }
 
 .wrapper a {
+  display: flex;
+  flex-direction: column;
   text-transform: none;
   color: var(--white);
   height: 100%;
+  padding-bottom: 1rem;
 }
 
 .wrapper:hover .imgWrapper img {
@@ -33,28 +40,12 @@
   height: auto;
 }
 
-.editButton {
-  background-color: var(--light-red);
-  position: absolute;
-  right: 0.85rem;
-  top: 0.6rem;
-  z-index: 2;
-  color: var(--white);
-  border: 2px solid var(--white);
-  border-radius: 0.35rem;
-  text-transform: uppercase;
-  font-family: "Satoshi 700";
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-
 .recipeName {
   font-family: "satoshi 500";
   font-size: 1.3rem;
-  padding: 1rem 0;
+  padding: 1rem;
   text-align: center;
 }
-
 
 .imgWrapper {
   position: relative;
@@ -112,16 +103,122 @@
 .characteristicsWrapper {
   display: flex;
   justify-content: space-between;
-  width: 80%;
+  width: 85%;
   margin: auto;
+  margin-bottom: 0;
 }
 
 .characteristic {
   display: flex;
   align-items: center;
+  padding: 0 2px;
 }
 
 .characteristic img {
   width: 1.5rem;
   margin-right: 0.35rem;
+}
+
+.container {
+  height: 100%;
+  margin-top: -0.2rem;
+}
+
+.imgSkeletonContainer {
+  height: 250px;
+}
+
+.imgSkeleton {
+  height: 240px;
+}
+
+.characteristicsSkeletonWrapper {
+  display: flex;
+  column-gap: 1rem;
+  padding: 1rem 1rem 0 1rem;
+}
+
+.characteristicSkeletonContainer {
+  flex: 1;
+}
+
+.characteristicSkeleton {
+  height: 100%;
+}
+
+.nameSkeleton {
+  height: 1.7rem;
+  margin-top: 1rem;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 45;
+  height: 45px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--light-red);
+  border-color: var(--light-red) transparent var(--light-red) transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+@media screen and (max-width: 992px) {
+  .imgWrapper {
+    height: 190px;
+  }
+  .saveButton {
+    width: 2.7rem;
+  }
+  .recipeName {
+    font-family: "satoshi 500";
+    font-size: 1.1rem;
+    padding: 0.7rem 0;
+    text-align: center;
+  }
+  .characteristic img {
+    width: 1.2rem;
+    margin-right: 0.25rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .recipeName {
+    font-family: "satoshi 500";
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  .characteristic img {
+    width: 1.1rem;
+    margin-right: 0.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .wrapper a {
+    padding-bottom: 0.5rem;
+  }
+  .imgWrapper {
+    height: 150px;
+  }
+  .characteristicsWrapper {
+    width: 90%;
+  }
+  .characteristic > span {
+    font-size: 0.9rem;
+  }
 }

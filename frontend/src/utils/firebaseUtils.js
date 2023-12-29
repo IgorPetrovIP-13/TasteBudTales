@@ -1,43 +1,27 @@
-import { db } from "../firebase";
-import { ref as dbRef, get, update } from "firebase/database";
-import { toast } from "react-toastify";
+export async function manageSavedRecipes(userId, recipeId) {
+  const url =
+    "https://us-central1-cookingbook-2fd2f.cloudfunctions.net/manageSavedRecipes";
 
-export async function checkIsSaved(recipeID, setIsSaved, uid) {
   try {
-    const snapshot = (await get(dbRef(db, "users/" + uid))).val();
-    if (snapshot.saved !== undefined) {
-      if (snapshot.saved.includes(recipeID)) {
-        setIsSaved(true);
-      } else {
-        setIsSaved(false);
-      }
-    } else {
-      setIsSaved(false);
-    }
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-export async function handleSave(isSaved, recipeID, setIsSaved, uid) {
-  const userRef = dbRef(db, "users/" + uid);
-  try {
-    const userSnapshot = await get(userRef);
-    const userData = userSnapshot.val();
-    const savedSet = new Set(userData.saved || []);
-    isSaved ? savedSet.delete(recipeID) : savedSet.add(recipeID);
-    await update(userRef, {
-      saved: [...savedSet],
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+        recipeId: recipeId,
+      }),
     });
-    if (!isSaved) {
-      console.log(1)
-      setIsSaved(true);
-      toast.success("Recipe saved");
-    } else {
-      setIsSaved(false);
-      toast.success("Recipe unsaved");
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return new Error(errorData.error);
     }
-  } catch (e) {
-    console.error(e);
+
+    const responseData = await response.json();
+    return responseData.message;
+  } catch (error) {
+    return new Error(error.message);
   }
 }

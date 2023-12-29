@@ -8,35 +8,32 @@ import {
 } from "react-share";
 import { useAuth } from "../../hooks/useAuth";
 import { useState, useEffect } from "react";
-import { ref, onValue, off } from "firebase/database";
-import { db } from "../../firebase";
 import save from "@/assets/icons/save.svg";
 import saveClicked from "@/assets/icons/saveClicked.svg";
 import share from "@/assets/icons/share.svg";
-import { handleSave } from "../../utils/firebaseUtils";
+import { useDispatch, useSelector } from "react-redux";
+import { addToSaved, removeFromSaved } from "../../reducers/userReducer";
+import { useNavigate } from "react-router-dom";
+import { deleteDoc, doc } from "firebase/firestore";
+import { firestoreDb } from "../../firebase";
 
 const SaveShareBlock = ({ id, isAuthor, tags }) => {
   const currentUrl = window.location.href;
   const [isSaved, setIsSaved] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const user = useAuth();
-  const userRef = ref(db, "users/" + user.uid);
+  const dispatch = useDispatch();
+  const savedList = useSelector((state) => state.user.saved);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    onValue(ref(db, "users/" + user.uid), (snapshot) => {
-      if (snapshot.val().saved !== undefined) {
-        if (snapshot.val().saved.includes(id)) {
-          setIsSaved(true);
-        } else {
-          setIsSaved(false);
-        }
-      } else {
-        setIsSaved(false);
-      }
-    });
-    return () => {
-      off(userRef);
-    };
-  }, []);
+    if (savedList.includes(id)) {
+      setIsSaved(true);
+    } else {
+      setIsSaved(false);
+    }
+  }, [savedList, dispatch]);
 
   function handleCopy() {
     try {
@@ -48,25 +45,59 @@ const SaveShareBlock = ({ id, isAuthor, tags }) => {
     }
   }
 
+  const handleSave = () => {
+    setIsSaving(true);
+    if (isSaved) {
+      dispatch(removeFromSaved(id)).then(() => {
+        setIsSaving(false);
+      });
+    } else {
+      dispatch(addToSaved(id)).then(() => {
+        setIsSaving(false);
+      });
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      setIsDeleting(true);
+      await deleteDoc(doc(firestoreDb, "recipes", id));
+      navigate("/");
+      toast.info("Recipe deleted!");
+    } catch (e) {
+      setIsDeleting(false);
+      console.error(e);
+      toast.error("Error!");
+    }
+  };
+
   return (
     <div className={styles.globalWrapper}>
       {user.isAuth && (
         <div className={styles.btnWrapper}>
           <h5 className={styles.optionH}>
-            {isAuthor ? "Edit" : isSaved ? "Unsave" : "Save"}:
+            {isAuthor ? "Delete" : isSaved ? "Unsave" : "Save"}:
           </h5>
           {isAuthor ? (
-            <button className={styles.editBtn}>Edit</button>
+            <button
+              disabled={isDeleting}
+              onClick={() => handleDelete()}
+              className={styles.deleteButton}
+            >
+              {isDeleting ? "...Deleting" : "Delete"}
+            </button>
           ) : (
-            <button onClick={() => handleSave(isSaved, id, setIsSaved, user.uid)} className={styles.saveBtn}>
-              <img
-                src={
-                  !isSaved
-                    ? save
-                    : saveClicked
-                }
-                alt="save"
-              />
+            <button
+              onClick={() => handleSave(id)}
+              className={styles.saveBtn}
+              disabled={isSaving}
+              style={{ pointerEvents: isSaving ? "none" : "auto" }}
+            >
+              {isSaving ? (
+                <div className={styles["lds-dual-ring"]}></div>
+              ) : (
+                <img src={!isSaved ? save : saveClicked} alt="save" />
+              )}
             </button>
           )}
         </div>
