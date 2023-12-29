@@ -41,43 +41,6 @@ exports.deleteFromIndex = functions.firestore
   .document("recipes/{recipeId}")
   .onDelete((snapshot) => index.deleteObject(snapshot.id));
 
-exports.updateRecipesOnNicknameChange = functions.firestore
-  .document("users/{userId}")
-  .onUpdate((change, context) => {
-    const newData = change.after.data();
-    const previousData = change.before.data();
-
-    if (newData.nickname !== previousData.nickname) {
-      const userId = context.params.userId;
-      const newNickname = newData.nickname;
-
-      const recipesRef = admin
-        .firestore()
-        .collection("recipes")
-        .where("userId", "==", userId);
-
-      return recipesRef
-        .get()
-        .then((snapshot) => {
-          const batch = admin.firestore().batch();
-          snapshot.forEach((doc) => {
-            const recipeRef = admin
-              .firestore()
-              .collection("recipes")
-              .doc(doc.id);
-
-            batch.update(recipeRef, { authorNickname: newNickname });
-          });
-          return batch.commit();
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          return null;
-        });
-    }
-
-    return null;
-  });
 
 exports.manageSavedRecipes = functions.https.onRequest(async (req, res) => {
   cors(req, res, async () => {
