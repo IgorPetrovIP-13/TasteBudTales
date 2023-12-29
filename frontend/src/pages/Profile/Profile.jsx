@@ -4,6 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
+import { recipesImg } from "@/assets/icons/recipes.svg";
+import { savedImg } from "@/assets/icons/saved.svg";
+import { settingsImg } from "@/assets/icons/logout.svg";
+
 
 const Profile = () => {
   const user = useAuth();
@@ -31,7 +35,7 @@ const Profile = () => {
           <li className={styles.card}>
             <Link className={styles.box} to={"myrecipes"}>
               <div className={styles.content}>
-                <img src="../../src/assets/icons/recipes.svg" />
+                <img src={recipesImg} />
                 <h3>My recipes</h3>
                 <p>Here you can view and manage your own recipes</p>
               </div>
@@ -40,7 +44,7 @@ const Profile = () => {
           <li className={styles.card}>
             <Link className={styles.box} to={"saved"}>
               <div className={styles.content}>
-                <img src="../../src/assets/icons/saved.svg" />
+                <img src={savedImg} />
                 <h3>Saved</h3>
                 <p>Here you can view and manage your saved recipes</p>
               </div>
@@ -49,7 +53,7 @@ const Profile = () => {
           <li className={styles.card}>
             <Link className={styles.box} to="settings">
               <div className={styles.content}>
-                <img src="../../src/assets/icons/settings.svg" />
+                <img src={settingsImg} />
                 <h3>Settings</h3>
                 <p>
                   Update your bio, profile name or security settings. Adding or
