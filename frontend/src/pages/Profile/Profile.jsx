@@ -4,10 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
-import { recipes } from "@/assets/icons/recipes.svg";
-import { saved } from "@/assets/icons/saved.svg";
-import { settings } from "@/assets/icons/settings.svg";
-import { logout } from "@/assets/icons/logout.svg";
+import recipes from "@/assets/icons/recipes.svg";
+import saved from "@/assets/icons/saved.svg";
+import settings from "@/assets/icons/settings.svg";
+import logout from "@/assets/icons/logout.svg";
 
 
 const Profile = () => {
