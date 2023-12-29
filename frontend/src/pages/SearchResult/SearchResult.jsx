@@ -19,6 +19,7 @@ const SearchResult = () => {
       const results = await searchRecipes(trimmedQuery);
       setSearchParams({ query: searchQuery });
       setSearchResults(results);
+      setErrorMessage("");
       setIsLoading(false);
     }
     else {
