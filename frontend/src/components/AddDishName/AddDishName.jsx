@@ -16,6 +16,7 @@ const AddDishName = () => {
       onChange={(e) => handleInput(e.target.value)}
       value={name}
       type="text"
+      maxLength={40}
     />
   );
 };
