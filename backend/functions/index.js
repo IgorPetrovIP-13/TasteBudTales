@@ -41,10 +41,6 @@ exports.deleteFromIndex = functions.firestore
   .document("recipes/{recipeId}")
   .onDelete((snapshot) => index.deleteObject(snapshot.id));
 
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
 exports.manageSavedRecipes = functions.https.onRequest(async (req, res) => {
   cors(req, res, async () => {
     try {
