@@ -6,44 +6,52 @@ import AddDescription from "../../components/AddDescription/AddDescription";
 import AddSteps from "../../components/AddSteps/AddSteps";
 import SubmitConstructor from "../../components/SubmitConstructor/SubmitConstructor";
 import AddCharacteristics from "../../components/AddСharacteristics/AddCharacteristics";
+import { useAuth } from "../../hooks/useAuth";
 
 const RecipeConstructor = () => {
+  const user = useAuth();
   return (
     <section className={styles.wrapper}>
-      <h1 className={styles.constructorMainHeader}>
-        Creating your awesome recipe
-      </h1>
-      <form name="recipeConstructor" onSubmit={(e) => handleSubmit(e)}>
-        <ul>
-          <li className={styles.constructorElement}>
-            <h2 className={styles.constructorSectionHeader}>Name</h2>
-            <AddDishName />
-          </li>
-          <li className={styles.constructorElement}>
-            <h2 className={styles.constructorSectionHeader}>Main image</h2>
-            <AddImg />
-          </li>
-          <li className={styles.constructorElement}>
-            <h2 className={styles.constructorSectionHeader}>Characteristics</h2>
-            <AddCharacteristics />
-          </li>
-          <li className={styles.constructorElement}>
-            <h2 className={styles.constructorSectionHeader}>
-              Description (optional)
-            </h2>
-            <AddDescription />
-          </li>
-          <li className={styles.constructorElement}>
-            <h2 className={styles.constructorSectionHeader}>Ingredients</h2>
-            <AddIngredients />
-          </li>
-          <li className={styles.constructorElement}>
-            <h2 className={styles.constructorSectionHeader}>Steps</h2>
-            <AddSteps />
-          </li>
-        </ul>
-        <SubmitConstructor />
-      </form>
+      {user.isAuth && (
+        <>
+          <h1 className={styles.constructorMainHeader}>
+            Creating your awesome recipe
+          </h1>
+          <form name="recipeConstructor" onSubmit={(e) => handleSubmit(e)}>
+            <ul>
+              <li className={styles.constructorElement}>
+                <h2 className={styles.constructorSectionHeader}>Name</h2>
+                <AddDishName />
+              </li>
+              <li className={styles.constructorElement}>
+                <h2 className={styles.constructorSectionHeader}>Main image</h2>
+                <AddImg />
+              </li>
+              <li className={styles.constructorElement}>
+                <h2 className={styles.constructorSectionHeader}>
+                  Characteristics
+                </h2>
+                <AddCharacteristics />
+              </li>
+              <li className={styles.constructorElement}>
+                <h2 className={styles.constructorSectionHeader}>
+                  Description (optional)
+                </h2>
+                <AddDescription />
+              </li>
+              <li className={styles.constructorElement}>
+                <h2 className={styles.constructorSectionHeader}>Ingredients</h2>
+                <AddIngredients />
+              </li>
+              <li className={styles.constructorElement}>
+                <h2 className={styles.constructorSectionHeader}>Steps</h2>
+                <AddSteps />
+              </li>
+            </ul>
+            <SubmitConstructor />
+          </form>
+        </>
+      )}
     </section>
   );
 };
