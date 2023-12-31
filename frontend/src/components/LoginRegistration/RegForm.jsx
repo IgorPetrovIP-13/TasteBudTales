@@ -27,8 +27,9 @@ const ValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required("Password is required")
     .min(6, "Password must be at least 6 characters")
+    .max(16, "Password must be <= 16 characters")
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{6,}$/,
+      /^\S*$/,
       "Incorrect password data"
     ),
   confirmPassword: Yup.string()
