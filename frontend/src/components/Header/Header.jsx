@@ -15,7 +15,7 @@ const Header = () => {
         <Link to="/" className={styles.logoLink}></Link>
         <div className={styles.rightContainer}>
           <Link to={"/search?query="} className={styles.search}><img src={search} alt="s" /></Link>
-          {user.isAuth ? (
+          {user.isAuth && user.nickname ? (
             <Link className={styles.profileLink} to={"/profile"}>
               <img src={cook} alt="cook" />
               {user.nickname}

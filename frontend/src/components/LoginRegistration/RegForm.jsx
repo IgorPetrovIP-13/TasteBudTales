@@ -29,7 +29,7 @@ const ValidationSchema = Yup.object().shape({
     .min(6, "Password must be at least 6 characters")
     .max(16, "Password must be <= 16 characters")
     .matches(
-      /^\S*$/,
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?!.*\s).{6,16}$/,
       "Incorrect password data"
     ),
   confirmPassword: Yup.string()
@@ -177,7 +177,7 @@ function RegForm() {
             <div className={styles.inputWrapper}>
               <Field
                 id="confirmPasswordForm"
-                type="text"
+                type="password"
                 name="confirmPassword"
                 className={styles.input}
               />

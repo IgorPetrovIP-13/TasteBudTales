@@ -13,9 +13,6 @@ const Footer = () => {
       <p className={styles.rules}>
         The website is not protected by any copyright. You are free to do
         whatever you want with the materials from it, no one cares.
-        <br />
-        P.S. I wouldn't recommend leaving important data here, as I'm not very
-        skilled in cybersecurity.
       </p>
       <p className={styles.author}>© Igor Petrov 2023</p>
     </footer>

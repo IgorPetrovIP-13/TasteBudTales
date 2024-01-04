@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
 import { useAuth } from "../../hooks/useAuth";
-import { doc, updateDoc } from "firebase/firestore";
-import { firestoreDb } from "../../firebase";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { auth, firestoreDb } from "../../firebase";
 import { toast } from "react-toastify";
 import styles from "./ProfileSettings.module.css";
+import ConfirmDelete from "../../components/ConfirmDelete/ConfirmDelete";
 
 const ValidationSchema = Yup.object().shape({
   nickName: Yup.string()
@@ -30,6 +31,7 @@ function ProfileSettings() {
   const user = useAuth();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
   async function handleSubmit(values) {
     const userRef = doc(firestoreDb, "users", user.uid);
@@ -73,8 +75,16 @@ function ProfileSettings() {
           <Form className={styles.form}>
             <div className={styles.container}>
               <div className={styles.inputWrapper}>
-                <label className={styles.inputLabel} htmlFor="nickNameForm">Nickname</label>
-                <Field placeholder={user.nickname} id="nickNameForm" type="text" name="nickName" className={styles.input}/>
+                <label className={styles.inputLabel} htmlFor="nickNameForm">
+                  Nickname
+                </label>
+                <Field
+                  placeholder={user.nickname}
+                  id="nickNameForm"
+                  type="text"
+                  name="nickName"
+                  className={styles.input}
+                />
                 <ErrorMessage
                   name="nickName"
                   component={"span"}
@@ -82,8 +92,16 @@ function ProfileSettings() {
                 />
               </div>
               <div className={styles.inputWrapper}>
-                <label className={styles.inputLabel} htmlFor="fullNameForm">Full Name</label>
-                <Field placeholder={user.fullName} id="fullNameForm" type="text" name="fullName" className={styles.input}/>
+                <label className={styles.inputLabel} htmlFor="fullNameForm">
+                  Full Name
+                </label>
+                <Field
+                  placeholder={user.fullName}
+                  id="fullNameForm"
+                  type="text"
+                  name="fullName"
+                  className={styles.input}
+                />
                 <ErrorMessage
                   name="fullName"
                   component={"span"}
@@ -91,7 +109,9 @@ function ProfileSettings() {
                 />
               </div>
               <div className={styles.inputWrapper}>
-                <label className={styles.inputLabel} htmlFor="descriptionForm">Description</label>
+                <label className={styles.inputLabel} htmlFor="descriptionForm">
+                  Description
+                </label>
                 <Field
                   placeholder={user.description}
                   as={TextareaAutosize}
@@ -106,12 +126,25 @@ function ProfileSettings() {
                 />
               </div>
             </div>
-            <button type="submit" className={styles.submitButton}>
-              {isSubmitting ? "Saving..." : "Save Changes"}
-            </button>
+            <div className={styles.buttonsWrapper}>
+              <button type="submit" className={styles.submitButton}>
+                {isSubmitting ? "Saving..." : "Save Changes"}
+              </button>
+              <button
+                onClick={() => setIsPasswordConfirm(true)}
+                style={{ backgroundColor: "var(--light-red)" }}
+                type="button"
+                className={styles.submitButton}
+              >
+                {"Delete account"}
+              </button>
+            </div>
           </Form>
         </Formik>
       </div>
+      {isPasswordConfirm && (
+        <ConfirmDelete closeFunc={() => setIsPasswordConfirm(false)}/>
+      )}
     </section>
   );
 }

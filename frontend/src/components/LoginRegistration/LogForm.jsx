@@ -15,6 +15,7 @@ const ValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required("Password is required")
     .min(6, "Password must be at least 6 characters")
+    .max(16, "Password must be <= 16 characters")
 });
 
 function LogForm() {
@@ -74,7 +75,7 @@ function LogForm() {
                 name="email"
                 className={styles.input}
               />
-              <label className={styles.inputLabel} htmlFor="surnameForm">
+              <label className={styles.inputLabel} htmlFor="emailForm">
                 Email
               </label>
               <ErrorMessage
